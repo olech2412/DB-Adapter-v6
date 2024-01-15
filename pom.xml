@@ -9,6 +9,13 @@
     <description>This is an adapter for this rest-api: https://github.com/derhuerst/db-rest.
         It can be used as a maven dependency and provides all models
     </description>
+    <developers>
+        <developer>
+            <id>olech2412</id>
+            <name>Ole Christoph</name>
+            <url>https://github.com/olech2412</url>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>17</java.version>
@@ -17,13 +24,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <repositories>
+    <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/olech2412/DB-Adapter</url>
+            <name>GitHub MensaHub-Package</name>
+            <url>https://maven.pkg.github.com/olech2412/MensaHub</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </releases>
         </repository>
-    </repositories>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -70,4 +85,24 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>9.0.7</version>
+                <configuration>
+                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
