@@ -89,9 +89,7 @@ public class Trip {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Trip)) return false;
-
-        Trip trip = (Trip) o;
+        if (!(o instanceof Trip trip)) return false;
 
         if (getTripId() != null ? !getTripId().equals(trip.getTripId()) : trip.getTripId() != null) return false;
         if (getStop() != null ? !getStop().equals(trip.getStop()) : trip.getStop() != null) return false;
