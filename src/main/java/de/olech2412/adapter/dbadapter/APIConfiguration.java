@@ -7,13 +7,17 @@ import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
 import lombok.Getter;
 import lombok.Setter;
-import org.junit.Test;
 
-import java.io.IOException;
-import java.util.HashMap;
+import java.net.Proxy;
 import java.util.List;
 
-
+/**
+ * This class stores information about all possible requests and provides configurations for {@link DB_Adapter_v6}
+ *
+ * @author olech2412
+ * @see DB_Adapter_v6
+ * @since 0.0.1
+ */
 public class APIConfiguration {
 
     @Getter
@@ -22,17 +26,18 @@ public class APIConfiguration {
 
     @Getter
     private List<Request> requests;
+
+    @Getter
+    @Setter
+    private Proxy proxy;
     
     public APIConfiguration() {
         buildRequestList();
     }
 
-    @Test
-    public void getStations() throws IOException {
-        DB_Adapter_v6 dbAdapterV6 = new DB_Adapter_v6(this);
-        dbAdapterV6.getStationById(8011160);
-    }
-
+    /**
+     * build the list of requests
+     */
     private void buildRequestList() {
         requests = List.of(
                 new Request.RequestBuilder()

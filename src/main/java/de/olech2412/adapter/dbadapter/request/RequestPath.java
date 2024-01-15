@@ -1,8 +1,10 @@
 package de.olech2412.adapter.dbadapter.request;
 
 import lombok.Getter;
-import lombok.Setter;
 
+/**
+ * This enum stores all possible request paths
+ */
 public enum RequestPath {
 
     STOPS_BY_ID("/stops/%s"),
