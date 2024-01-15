@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.olech2412.adapter</groupId>
-    <artifactId>DB-Adapter</artifactId>
+    <artifactId>db-adapter-v6</artifactId>
     <version>0.0.1</version>
     <name>DB-Adapter v6</name>
     <description>This is an adapter for this rest-api: https://github.com/derhuerst/db-rest.
