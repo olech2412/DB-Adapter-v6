@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
+/**
+ * The regional area is an organisational unit of Deutsche Bahn that is responsible for the coordination and control of railway operations.
+ */
 @Data
 @Embeddable
 public class Regionalbereich {

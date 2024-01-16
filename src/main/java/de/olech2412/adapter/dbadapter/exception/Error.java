@@ -1,5 +1,10 @@
 package de.olech2412.adapter.dbadapter.exception;
 
+/**
+ * This class represents an general error and can be implemented by other classes
+ *
+ * @since 0.0.1
+ */
 public interface Error {
 
     String getMessage();

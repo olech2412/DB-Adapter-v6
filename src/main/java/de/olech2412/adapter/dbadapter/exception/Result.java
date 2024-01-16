@@ -1,5 +1,12 @@
 package de.olech2412.adapter.dbadapter.exception;
 
+/**
+ * This class represents a result of a function call
+ *
+ * @param <T> a success type
+ * @param <X> an error type
+ * @since 0.0.1
+ */
 public class Result<T, X> {
 
     private final boolean success;

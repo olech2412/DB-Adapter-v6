@@ -2,6 +2,9 @@ package de.olech2412.adapter.dbadapter.model.stop.sub;
 
 import java.io.IOException;
 
+/**
+ * Type of the line.
+ */
 public enum LineType {
     LINE;
 

@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
+/**
+ * The location is the geographical location of the station.
+ */
 @Data
 @Embeddable
 public class Location {

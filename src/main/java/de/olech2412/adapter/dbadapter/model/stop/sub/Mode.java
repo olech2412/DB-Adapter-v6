@@ -7,7 +7,9 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-// Ihre Mode-Enum-Klasse mit der @JsonAdapter-Annotation
+/**
+ * This class is used to convert a Mode object to a JSON value and vice versa
+ */
 @JsonAdapter(Mode.ModeTypeAdapter.class)
 public enum Mode {
     BUS, TAXI, WATERCRAFT, TRAIN;

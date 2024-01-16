@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A stop represents a public transport station.
+ */
 @Data
 @Entity
 @Table(name = "stops")

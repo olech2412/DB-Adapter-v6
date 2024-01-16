@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A station represents a public transport station.
+ */
 @Data
 @Entity
 @Table(name = "stations")

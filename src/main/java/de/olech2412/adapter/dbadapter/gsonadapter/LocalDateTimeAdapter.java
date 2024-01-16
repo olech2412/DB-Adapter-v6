@@ -9,25 +9,30 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This class is used to convert a LocalDateTime object to a JSON value and vice versa
+ *
+ * @since 0.0.1
+ */
 public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
 
-    // Definieren Sie ein DateTimeFormatter-Objekt, um das Datum und die Uhrzeit zu formatieren
+    // define a DateTimeFormatter, which is used to parse and format LocalDateTime objects
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-    // Überschreiben Sie die write-Methode, um ein LocalDateTime-Objekt in einen Json-Wert zu konvertieren
+    // override the write method to convert a LocalDateTime object to a JSON value
     @Override
     public void write(JsonWriter out, LocalDateTime value) throws IOException {
-        // Wenn der Wert null ist, schreiben Sie null in den JsonWriter
+        // if the value is null, write null to the JsonWriter
         if (value == null) {
             out.nullValue();
             return;
         }
-        // Andernfalls formatieren Sie den Wert mit dem DateTimeFormatter und schreiben Sie ihn als String in den JsonWriter
+        // otherwise format the value with the DateTimeFormatter and write it to the JsonWriter
         String formatted = formatter.format(value);
         out.value(formatted);
     }
 
-    // Überschreiben Sie die read-Methode, um einen Json-Wert in ein LocalDateTime-Objekt zu konvertieren
+    // override the read method to convert a JSON value to a LocalDateTime object
     @Override
     public LocalDateTime read(JsonReader in) throws IOException {
         // Wenn der Json-Wert null ist, geben Sie null zurück
@@ -35,7 +40,7 @@ public class LocalDateTimeAdapter extends TypeAdapter<LocalDateTime> {
             in.nextNull();
             return null;
         }
-        // Andernfalls lesen Sie den Json-Wert als String und parsen Sie ihn mit dem DateTimeFormatter
+        // otherwise read the value as a String and parse it with the DateTimeFormatter
         String formatted = in.nextString();
         return LocalDateTime.parse(formatted, formatter);
     }

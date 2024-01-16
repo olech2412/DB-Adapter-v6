@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
+/**
+ * The operator is the company that operates the station.
+ */
 @Data
 @Embeddable
 public class Operator {

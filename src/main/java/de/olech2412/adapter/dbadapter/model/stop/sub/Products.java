@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
 
+/**
+ * Products which are available at this stop.
+ */
 @Data
 @Embeddable
 public class Products {

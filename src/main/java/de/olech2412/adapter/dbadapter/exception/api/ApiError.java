@@ -2,6 +2,11 @@ package de.olech2412.adapter.dbadapter.exception.api;
 
 import de.olech2412.adapter.dbadapter.exception.Error;
 
+/**
+ * This class represents an error from the API
+ *
+ * @since 0.0.1
+ */
 public class ApiError implements Error {
 
     private final String message;
