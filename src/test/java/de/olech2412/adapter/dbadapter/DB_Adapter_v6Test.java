@@ -29,7 +29,7 @@ public class DB_Adapter_v6Test {
         Trip arrival = arrivals[0];
         Assertions.assertNotNull(arrival);
         Assertions.assertNotNull(arrival.getStop());
-        Assertions.assertNotNull(arrival.getWhen());
+        Assertions.assertNotNull(arrival.getCreatedAt());
         Assertions.assertNotNull(arrival.getLine());
         Assertions.assertNotNull(arrival.getTripId());
     }
@@ -48,7 +48,7 @@ public class DB_Adapter_v6Test {
         Trip departure = departures[0];
         Assertions.assertNotNull(departure);
         Assertions.assertNotNull(departure.getStop());
-        Assertions.assertNotNull(departure.getWhen());
+        Assertions.assertNotNull(departure.getCreatedAt());
         Assertions.assertNotNull(departure.getLine());
         Assertions.assertNotNull(departure.getTripId());
     }
@@ -65,7 +65,7 @@ public class DB_Adapter_v6Test {
         Trip departure = departures[0];
         Assertions.assertNotNull(departure);
         Assertions.assertNotNull(departure.getStop());
-        Assertions.assertNotNull(departure.getWhen());
+        Assertions.assertNotNull(departure.getCreatedAt());
         Assertions.assertNotNull(departure.getLine());
         Assertions.assertNotNull(departure.getTripId());
     }
@@ -82,7 +82,7 @@ public class DB_Adapter_v6Test {
         Trip arrival = arrivals[0];
         Assertions.assertNotNull(arrival);
         Assertions.assertNotNull(arrival.getStop());
-        Assertions.assertNotNull(arrival.getWhen());
+        Assertions.assertNotNull(arrival.getCreatedAt());
         Assertions.assertNotNull(arrival.getLine());
         Assertions.assertNotNull(arrival.getTripId());
     }
@@ -98,7 +98,7 @@ public class DB_Adapter_v6Test {
         Trip arrival = arrivals[0];
         Assertions.assertNotNull(arrival);
         Assertions.assertNotNull(arrival.getStop());
-        Assertions.assertNotNull(arrival.getWhen());
+        Assertions.assertNotNull(arrival.getCreatedAt());
         Assertions.assertNotNull(arrival.getLine());
         Assertions.assertNotNull(arrival.getTripId());
     }
@@ -114,7 +114,7 @@ public class DB_Adapter_v6Test {
         Trip departure = departures[0];
         Assertions.assertNotNull(departure);
         Assertions.assertNotNull(departure.getStop());
-        Assertions.assertNotNull(departure.getWhen());
+        Assertions.assertNotNull(departure.getCreatedAt());
         Assertions.assertNotNull(departure.getLine());
         Assertions.assertNotNull(departure.getTripId());
     }
