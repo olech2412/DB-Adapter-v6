@@ -23,12 +23,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Build DB-Adapter-v6
-        run: 'mvn clean install -P CVE-Check'
+      - name: Build and test DB-Adapter-v6
+        run: 'mvn clean install '
 
-      - name: Archive dependency check report
+      - name: Archive test reports
         uses: actions/upload-artifact@v2
         with:
-          name: dependency-check-reports
+          name: test-reports
           path: |
-            target/dependency-check-report.html
+            target/site/jacoco/*
