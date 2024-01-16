@@ -5,7 +5,7 @@
     <groupId>de.olech2412.adapter</groupId>
     <artifactId>db-adapter-v6</artifactId>
     <version>0.0.1</version>
-    <name>DB-Adapter v6</name>
+    <name>db-adapter-v6</name>
     <description>This is an adapter for this rest-api: https://github.com/derhuerst/db-rest.
         It can be used as a maven dependency and provides all models
     </description>
