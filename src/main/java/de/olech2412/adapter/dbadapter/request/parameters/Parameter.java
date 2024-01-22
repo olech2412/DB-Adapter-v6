@@ -18,12 +18,12 @@ public class Parameter<T> {
     private final T value;
 
     /**
-     * Private constructor for creating a new Parameter.
+     * Constructor for creating a new Parameter.
      *
      * @param requestParametersNames the name of the parameter
      * @param value                  the value of the parameter
      */
-    private Parameter(RequestParametersNames requestParametersNames, T value) {
+    public Parameter(RequestParametersNames requestParametersNames, T value) {
         this.requestParametersNames = requestParametersNames;
         this.value = value;
     }
