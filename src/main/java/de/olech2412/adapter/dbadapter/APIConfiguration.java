@@ -22,7 +22,7 @@ public class APIConfiguration {
 
     @Getter
     @Setter
-    private String baseUrl = "http://127.0.0.1:3000";
+    private String baseUrl = "https://v6.db.transport.rest";
 
     @Getter
     private List<Request> requests;
