@@ -4,7 +4,62 @@ on:
   workflow_dispatch:
 
 jobs:
+  build-and-test-adapter:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and test DB-Adapter-v6
+        run: 'mvn clean install '
+
+      - name: Archive test reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: |
+            target/site/jacoco/*
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  cve-scan:
+    needs: build-and-test-adapter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Run CVE scan
+        run: 'mvn clean install -P CVE-Check -Dmaven.test.skip=true'
+
+      - name: Archive CVE scan results
+        uses: actions/upload-artifact@v2
+        with:
+          name: cve.results
+          path: |
+            target/dependency-check-report.html
+          
   publish:
+    needs: [build-and-test-adapter, cve-scan]
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -12,10 +67,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '17'
@@ -24,8 +79,3 @@ jobs:
         run: mvn --batch-mode deploy
         env:
           GITHUB_TOKEN: ${{ secrets.DEPLOY_PACKAGE }}
-
-      - name: Output Maven Version from settings.xml
-        run: |
-          # Read the Maven version from settings.xml
-          mvn --version
