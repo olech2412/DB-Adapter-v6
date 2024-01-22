@@ -3,7 +3,7 @@ package de.olech2412.adapter.dbadapter.request.parameters;
 import lombok.Getter;
 
 @Getter
-public enum RequestParameters {
+public enum RequestParametersNames {
 
     PRETTY("pretty"), // pretty print
 
@@ -23,7 +23,7 @@ public enum RequestParameters {
 
     private final String parameter;
 
-    RequestParameters(String parameter) {
+    RequestParametersNames(String parameter) {
         this.parameter = parameter;
     }
 
