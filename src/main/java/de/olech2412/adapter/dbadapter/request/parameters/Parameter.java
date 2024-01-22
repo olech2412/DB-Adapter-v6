@@ -34,6 +34,9 @@ public class Parameter<T> {
     public static class ParameterBuilder {
         private final List<Parameter<?>> parameters = new ArrayList<>();
 
+        public ParameterBuilder() {
+        }
+
         /**
          * Adds a new Parameter to the list.
          *

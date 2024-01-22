@@ -1,8 +1,5 @@
 package de.olech2412.adapter.dbadapter;
 
-import de.olech2412.adapter.dbadapter.model.station.Station;
-import de.olech2412.adapter.dbadapter.model.stop.Stop;
-import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
 import org.junit.Assert;
@@ -22,17 +19,17 @@ public class APIConfigurationTest {
     @Test
     public void test_getRequests() {
         List<Request> expectedRequests = List.of(
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID).setResponseClass(Stop.class).build(),
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_DEPARTURES).setResponseClass(Trip.class).build(),
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_ARRIVALS).setResponseClass(Trip.class).build(),
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS_BY_ID).setResponseClass(Station.class).build(),
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS).setResponseClass(Station.class).build()
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID).build(),
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_DEPARTURES).build(),
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_ARRIVALS).build(),
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS_BY_ID).build(),
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS).build()
         );
         APIConfiguration apiConfiguration = new APIConfiguration();
         Assert.assertEquals(apiConfiguration.getRequests().size(), expectedRequests.size());
         for (int i = 0; i < apiConfiguration.getRequests().size(); i++) {
             Assert.assertEquals(apiConfiguration.getRequests().get(i).getApiEndpoint(), expectedRequests.get(i).getApiEndpoint());
-            Assert.assertEquals(apiConfiguration.getRequests().get(i).getResponseClass(), expectedRequests.get(i).getResponseClass());
+            Assert.assertEquals(apiConfiguration.getRequests().get(i), expectedRequests.get(i));
         }
     }
 

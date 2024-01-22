@@ -17,6 +17,8 @@ public class ParameterEvaluator {
      * @return a String representation of the list of Parameters
      */
     public static String convertToString(List<Parameter<?>> parameters) {
+        if (parameters.isEmpty())
+            return ""; // if the list is empty, return an empty string (otherwise the url would be invalid
         StringBuilder stringBuilder = new StringBuilder();
         for (Parameter<?> parameter : parameters) {
             if (stringBuilder.isEmpty()) { // if its the first parameter, add a question mark

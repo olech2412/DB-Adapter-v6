@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Random;
 
 public class DB_Adapter_v6Test {
@@ -135,7 +136,7 @@ public class DB_Adapter_v6Test {
     @Test
     public void testGetStationById() throws IOException {
 
-        Station station = db_adapter_v6.getStationById(8010159);
+        Station station = db_adapter_v6.getStationById(8010159, Collections.EMPTY_LIST);
 
         Assertions.assertNotNull(station);
         Assertions.assertNotNull(station.getCreatedAt());
@@ -147,7 +148,7 @@ public class DB_Adapter_v6Test {
     @Test
     public void testWrongInput() throws IOException {
         Assertions.assertThrows(IOException.class, () -> {
-            db_adapter_v6.getStationById(-1);
+            db_adapter_v6.getStationById(-1, Collections.EMPTY_LIST);
         });
 
         Assertions.assertThrows(IOException.class, () -> {
