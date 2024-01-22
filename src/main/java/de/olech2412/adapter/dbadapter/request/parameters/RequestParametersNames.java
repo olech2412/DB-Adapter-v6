@@ -15,7 +15,7 @@ public enum RequestParametersNames {
 
     DIRECTION("direction"), // direction
 
-    DURATION("duration"), // duration
+    DURATION("duration"), // duration (fetch data for the next n minutes)
 
     RESULTS("results"), // number of results
 

@@ -87,7 +87,7 @@ public class DB_Adapter_v6Test {
     }
 
     @Test
-    public void testParameter() throws IOException {
+    public void testParameterResults() throws IOException {
         Trip[] arrivals = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
         Trip[] arrivalsWithParameter = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder().add(RequestParametersNames.RESULTS, 1).build());
 
