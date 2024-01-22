@@ -10,6 +10,8 @@ import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
+import de.olech2412.adapter.dbadapter.request.parameters.Parameter;
+import de.olech2412.adapter.dbadapter.request.parameters.ParameterEvaluator;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * This class is responsible for making requests to the API and returning the response
@@ -41,101 +44,16 @@ public class DB_Adapter_v6 {
     }
 
     /**
-     * Get all departures of a stop by id with a duration and a number of results
-     *
-     * @param id       the id of the stop
-     * @param duration the duration in minutes
-     * @param results  the number of results
-     * @return the departures as an array of trips
-     * @throws IOException if the request fails
-     */
-    public Trip[] getDeparturesByStopIdWithDurationAndResults(Integer id, Integer duration, Integer results) throws IOException {
-        Request request = getRequest(RequestPath.STOPS_BY_ID_DEPARTURES);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + "?duration=" + duration + "&" + "results=" + results);
-        Result<JsonObject, Error> result = performRequest(request);
-
-        if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
-        } else {
-            JsonArray jsonArray = result.getData().getAsJsonArray("departures");
-            return gson.fromJson(jsonArray, Trip[].class);
-        }
-    }
-
-    /**
-     * Get all arrivals of a stop by id with a duration and a number of results
-     *
-     * @param id       the id of the stop
-     * @param duration the duration in minutes
-     * @param results  the number of results
-     * @return the arrivals as an array of trips
-     * @throws IOException if the request fails
-     */
-    public Trip[] getArrivalsByStopIdWithDurationAndResults(Integer id, Integer duration, Integer results) throws IOException {
-        Request request = getRequest(RequestPath.STOPS_BY_ID_ARRIVALS);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + "?duration=" + duration + "&" + "results=" + results);
-        Result<JsonObject, Error> result = performRequest(request);
-
-        if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
-        } else {
-            JsonArray jsonArray = result.getData().getAsJsonArray("arrivals");
-            return gson.fromJson(jsonArray, Trip[].class);
-        }
-    }
-
-    /**
-     * Get all departures of a stop by id with a duration
-     *
-     * @param id       the id of the stop
-     * @param duration the duration in minutes
-     * @return the departures as an array of trips
-     * @throws IOException if the request fails
-     */
-    public Trip[] getDeparturesByStopIdWithDuration(Integer id, Integer duration) throws IOException {
-        Request request = getRequest(RequestPath.STOPS_BY_ID_DEPARTURES);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + "?duration=" + duration);
-        Result<JsonObject, Error> result = performRequest(request);
-
-        if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
-        } else {
-            JsonArray jsonArray = result.getData().getAsJsonArray("departures");
-            return gson.fromJson(jsonArray, Trip[].class);
-        }
-    }
-
-    /**
-     * Get all arrivals of a stop by id with a duration
-     *
-     * @param id       the id of the stop
-     * @param duration the duration in minutes
-     * @return the arrivals as an array of trips
-     * @throws IOException if the request fails
-     */
-    public Trip[] getArrivalsByStopIdWithDuration(Integer id, Integer duration) throws IOException {
-        Request request = getRequest(RequestPath.STOPS_BY_ID_ARRIVALS);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + "?duration=" + duration);
-        Result<JsonObject, Error> result = performRequest(request);
-
-        if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
-        } else {
-            JsonArray jsonArray = result.getData().getAsJsonArray("arrivals");
-            return gson.fromJson(jsonArray, Trip[].class);
-        }
-    }
-
-    /**
      * Get all departures of a stop by id
      *
      * @param id the id of the stop
      * @return the departures as an array of trips
      * @throws IOException if the request fails
      */
-    public Trip[] getDeparturesByStopId(Integer id) throws IOException {
+    public Trip[] getDeparturesByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
+        String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID_DEPARTURES);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id));
+        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
@@ -153,9 +71,10 @@ public class DB_Adapter_v6 {
      * @return the arrivals as an array of trips
      * @throws IOException if the request fails
      */
-    public Trip[] getArrivalsByStopId(Integer id) throws IOException {
+    public Trip[] getArrivalsByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
+        String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID_ARRIVALS);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id));
+        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
@@ -173,9 +92,10 @@ public class DB_Adapter_v6 {
      * @return the stop
      * @throws IOException if the request fails
      */
-    public Stop getStopById(Integer id) throws IOException {
+    public Stop getStopById(Integer id, List<Parameter<?>> parameters) throws IOException {
+        String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id));
+        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
@@ -192,9 +112,10 @@ public class DB_Adapter_v6 {
      * @return the station
      * @throws IOException if the request fails
      */
-    public Station getStationById(Integer id) throws IOException {
+    public Station getStationById(Integer id, List<Parameter<?>> parameters) throws IOException {
+        String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STATIONS_BY_ID);
-        request.setApiEndpoint(String.format(request.getApiEndpoint(), id));
+        request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
@@ -213,7 +134,8 @@ public class DB_Adapter_v6 {
     private Request getRequest(RequestPath requestPath) {
         for (Request request : apiConfiguration.getRequests()) {
             if (request.getApiEndpoint().equals(requestPath.getPath())) {
-                return request;
+                // important! otherwise it would change the ApiEndpoint permanent
+                return new Request.RequestBuilder().setApiEndpoint(requestPath).build(); // Create a new request with the same api endpoint
             }
         }
 
