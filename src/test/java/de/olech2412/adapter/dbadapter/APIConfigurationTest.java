@@ -29,6 +29,7 @@ public class APIConfigurationTest {
         Assert.assertEquals(apiConfiguration.getRequests().size(), expectedRequests.size());
         for (int i = 0; i < apiConfiguration.getRequests().size(); i++) {
             Assert.assertEquals(apiConfiguration.getRequests().get(i).getApiEndpoint(), expectedRequests.get(i).getApiEndpoint());
+            Assert.assertEquals(apiConfiguration.getRequests().get(i), expectedRequests.get(i));
         }
     }
 

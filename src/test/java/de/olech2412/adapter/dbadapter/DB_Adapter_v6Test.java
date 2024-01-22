@@ -3,6 +3,8 @@ package de.olech2412.adapter.dbadapter;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
+import de.olech2412.adapter.dbadapter.request.parameters.Parameter;
+import de.olech2412.adapter.dbadapter.request.parameters.RequestParametersNames;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -82,6 +84,19 @@ public class DB_Adapter_v6Test {
         Assertions.assertThrows(IOException.class, () -> {
             db_adapter_v6.getArrivalsByStopId(new Random().nextInt(), Collections.EMPTY_LIST);
         });
+    }
+
+    @Test
+    public void testParameter() throws IOException {
+        Trip[] arrivals = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
+        Trip[] arrivalsWithParameter = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder().add(RequestParametersNames.RESULTS, 1).build());
+
+        Assertions.assertNotNull(arrivals);
+        Assertions.assertNotNull(arrivalsWithParameter);
+        Assertions.assertNotEquals(0, arrivals.length);
+        Assertions.assertNotEquals(0, arrivalsWithParameter.length);
+        Assertions.assertNotEquals(arrivals.length, arrivalsWithParameter.length);
+        Assertions.assertEquals(1, arrivalsWithParameter.length);
     }
 
 }

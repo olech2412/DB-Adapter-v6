@@ -134,7 +134,8 @@ public class DB_Adapter_v6 {
     private Request getRequest(RequestPath requestPath) {
         for (Request request : apiConfiguration.getRequests()) {
             if (request.getApiEndpoint().equals(requestPath.getPath())) {
-                return request;
+                // important! otherwise it would change the ApiEndpoint permanent
+                return new Request.RequestBuilder().setApiEndpoint(requestPath).build(); // Create a new request with the same api endpoint
             }
         }
 
