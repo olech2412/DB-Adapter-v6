@@ -7,11 +7,11 @@ import lombok.Setter;
  * This class stores information about all possible requests
  * It stores the base url and the class that represents the response
  */
+@Setter
+@Getter
 public class Request {
 
     // The endpoint of the api
-    @Getter
-    @Setter
     private String apiEndpoint;
 
     // get the endpoint of the api
