@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build-and-generate-CVE-reports:
+  build-and-test-adapter:
     runs-on: ubuntu-latest
 
     steps:
