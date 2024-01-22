@@ -28,7 +28,7 @@
         <repository>
             <id>github</id>
             <name>GitHub DB-Adapter-Package</name>
-            <url>https://maven.pkg.github.com/olech2412/DBAdapter</url>
+            <url>https://maven.pkg.github.com/olech2412/DB-Adapter-v6</url>
             <snapshots>
                 <enabled>true</enabled>
                 <updatePolicy>always</updatePolicy>
