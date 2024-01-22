@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.olech2412.adapter</groupId>
     <artifactId>db-adapter-v6</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <name>db-adapter-v6</name>
     <description>This is an adapter for this rest-api: https://github.com/derhuerst/db-rest.
         It can be used as a maven dependency and provides all models
@@ -140,26 +140,6 @@
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.owasp</groupId>
-                <artifactId>dependency-check-maven</artifactId>
-                <version>9.0.1</version>
-                <configuration>
-                    <nvdApiKey>33d05ecb-d4ef-440c-b2ec-46e718460759</nvdApiKey>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.cyclonedx</groupId>
-                <artifactId>cyclonedx-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>makeAggregateBom</goal>
                         </goals>
                     </execution>
                 </executions>
