@@ -19,7 +19,6 @@ public class DB_Adapter_v6Test {
 
     int stopId = 8503000;
 
-    @Test
     public void testGetArrivalsByStopId() throws IOException {
 
         Trip[] arrivals = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);

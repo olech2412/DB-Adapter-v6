@@ -17,57 +17,60 @@ import java.util.UUID;
 @Table(name = "stations")
 public class Station {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
-
-    @Column(name = "station_id")
-    private String id;
-    private float relevance;
-    private float score;
-    private float weight;
-    private String type;
-
-    private String ril100;
-    private float nr;
-    private String name;
     @Embedded
     @Column(nullable = true)
-    Location location;
+    Location location; // Location of the station
     @Embedded
-    Operator operator;
+    Operator operator; // Operator of the station
     @Embedded
-    Address address;
-    private float category;
-    private float priceCategory;
-    private boolean hasParking;
-    private boolean hasBicycleParking;
-    private boolean hasLocalPublicTransport;
-    private boolean hasPublicFacilities;
-    private boolean hasLockerSystem;
-    private boolean hasTaxiRank;
-    private boolean hasTravelNecessities;
-    private String hasSteplessAccess;
-    private String hasMobilityService;
-    private boolean hasWiFi;
-    private boolean hasTravelCenter;
-    private boolean hasRailwayMission;
-    private boolean hasDBLounge;
-    private boolean hasLostAndFound;
-    private boolean hasCarRental;
-    private String federalState;
-    private LocalDateTime createdAt = LocalDateTime.now();
+    Address address; // Address of the station
     @Embedded
-    Regionalbereich regionalbereich;
+    Regionalbereich regionalbereich; // Regional area of the station
     @Embedded
-    TimeTableOffice timeTableOffice;
+    TimeTableOffice timeTableOffice; // Timetable office of the station
     @Embedded
-    Szentrale szentrale;
+    Szentrale szentrale; // Central office of the station
     @Embedded
-    StationManagement stationManagement;
+    StationManagement stationManagement; // Station management of the station
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID uuid; // Unique identifier for the station
+    @Column(name = "station_id")
+    private String id; // Station ID
+    private float relevance; // Relevance score of the station
+    private float score; // Score of the station
+    private float weight; // Weight of the station
+    private String type; // Type of the station
+    private String ril100; // Ril100 identifier of the station
+    private float nr; // Number of the station
+    private String name; // Name of the station
+    private float category; // Category of the station
+    private float priceCategory; // Price category of the station
+    private boolean hasParking; // Flag indicating if the station has parking
+    private boolean hasBicycleParking; // Flag indicating if the station has bicycle parking
+    private boolean hasLocalPublicTransport; // Flag indicating if the station has local public transport
+    private boolean hasPublicFacilities; // Flag indicating if the station has public facilities
+    private boolean hasLockerSystem; // Flag indicating if the station has a locker system
+    private boolean hasTaxiRank; // Flag indicating if the station has a taxi rank
+    private boolean hasTravelNecessities; // Flag indicating if the station has travel necessities
+    private String hasSteplessAccess; // Flag indicating if the station has stepless access
+    private String hasMobilityService; // Flag indicating if the station has a mobility service
+    private boolean hasWiFi; // Flag indicating if the station has WiFi
+    private boolean hasTravelCenter; // Flag indicating if the station has a travel center
+    private boolean hasRailwayMission; // Flag indicating if the station has a railway mission
+    private boolean hasDBLounge; // Flag indicating if the station has a DB Lounge
+    private boolean hasLostAndFound; // Flag indicating if the station has a lost and found
+    private boolean hasCarRental; // Flag indicating if the station has a car rental
+    private String federalState; // Federal state where the station is located
+    private LocalDateTime createdAt = LocalDateTime.now(); // Creation date and time of the station
     @ElementCollection
-    private List<Ril100Identifier> ril100Identifiers = new ArrayList<>();
+    private List<Ril100Identifier> ril100Identifiers = new ArrayList<>(); // List of Ril100 identifiers of the station
 
+    /**
+     * Returns a string representation of the Station object.
+     *
+     * @return a string representation of the Station object.
+     */
     @Override
     public String toString() {
         return "Station{" +
