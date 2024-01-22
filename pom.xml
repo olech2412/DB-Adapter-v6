@@ -83,7 +83,6 @@
             <version>5.10.1</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <profiles>
@@ -141,6 +140,26 @@
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>9.0.1</version>
+                <configuration>
+                    <nvdApiKey>33d05ecb-d4ef-440c-b2ec-46e718460759</nvdApiKey>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
                         </goals>
                     </execution>
                 </executions>

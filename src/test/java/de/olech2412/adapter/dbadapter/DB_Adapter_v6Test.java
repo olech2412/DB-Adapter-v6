@@ -18,8 +18,8 @@ public class DB_Adapter_v6Test {
 
     @Test
     public void testGetArrivalsWithValidStopIdAndDurationAndResults() throws IOException {
-        int duration = 30;
-        int results = 10;
+        int duration = 45;
+        int results = 9999;
 
         Trip[] arrivals = db_adapter_v6.getArrivalsByStopIdWithDurationAndResults(stopId, duration, results);
 

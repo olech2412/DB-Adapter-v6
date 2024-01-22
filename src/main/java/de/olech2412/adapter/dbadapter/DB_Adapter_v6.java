@@ -12,9 +12,9 @@ import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
 import org.apache.commons.io.IOUtils;
 
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -228,12 +228,12 @@ public class DB_Adapter_v6 {
      */
     private Result<JsonObject, Error> performRequest(Request request) throws IOException {
         URL url = new URL(apiConfiguration.getBaseUrl() + request.getApiEndpoint());
-        HttpsURLConnection con;
+        HttpURLConnection con;
 
         if (apiConfiguration.getProxy() != null) {
-            con = (HttpsURLConnection) url.openConnection(apiConfiguration.getProxy());
+            con = (HttpURLConnection) url.openConnection(apiConfiguration.getProxy());
         } else {
-            con = (HttpsURLConnection) url.openConnection();
+            con = (HttpURLConnection) url.openConnection();
         }
 
         con.setRequestMethod("GET");
