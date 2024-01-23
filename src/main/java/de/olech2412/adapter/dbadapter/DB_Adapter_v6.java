@@ -12,6 +12,7 @@ import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
 import de.olech2412.adapter.dbadapter.request.parameters.Parameter;
 import de.olech2412.adapter.dbadapter.request.parameters.ParameterEvaluator;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ import java.util.List;
  * @author olech2412
  * @since 0.0.1
  */
+@Slf4j
 public class DB_Adapter_v6 {
 
     private final APIConfiguration apiConfiguration; // The configuration of the api
@@ -50,17 +52,18 @@ public class DB_Adapter_v6 {
      * @return the departures as an array of trips
      * @throws IOException if the request fails
      */
-    public Trip[] getDeparturesByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
+    public Result<Trip[], Error> getDeparturesByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
         String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID_DEPARTURES);
         request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
+            log.error(String.format("Error while getting departures by stop id %s: %s", id, result.getError().getError()));
+            return Result.error(result.getError());
         } else {
             JsonArray jsonArray = result.getData().getAsJsonArray("departures");
-            return gson.fromJson(jsonArray, Trip[].class);
+            return Result.success(gson.fromJson(jsonArray, Trip[].class));
         }
     }
 
@@ -71,17 +74,18 @@ public class DB_Adapter_v6 {
      * @return the arrivals as an array of trips
      * @throws IOException if the request fails
      */
-    public Trip[] getArrivalsByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
+    public Result<Trip[], Error> getArrivalsByStopId(Integer id, List<Parameter<?>> parameters) throws IOException {
         String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID_ARRIVALS);
         request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
+            log.error(String.format("Error while getting arrivals by stop id %s: %s", id, result.getError().getError()));
+            return Result.error(result.getError());
         } else {
             JsonArray jsonArray = result.getData().getAsJsonArray("arrivals");
-            return gson.fromJson(jsonArray, Trip[].class);
+            return Result.success(gson.fromJson(jsonArray, Trip[].class));
         }
     }
 
@@ -89,19 +93,20 @@ public class DB_Adapter_v6 {
      * Get all stops by id
      *
      * @param id the id of the stop
-     * @return the stop
+     * @return a result with the stop or an error
      * @throws IOException if the request fails
      */
-    public Stop getStopById(Integer id, List<Parameter<?>> parameters) throws IOException {
+    public Result<Stop, Error> getStopById(Integer id, List<Parameter<?>> parameters) throws IOException {
         String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STOPS_BY_ID);
         request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
+            log.error(String.format("Error while getting stop by id %s: %s", id, result.getError().getError()));
+            return Result.error(result.getError());
         } else {
-            return gson.fromJson(result.getData(), Stop.class);
+            return Result.success(gson.fromJson(result.getData(), Stop.class));
         }
     }
 
@@ -109,19 +114,20 @@ public class DB_Adapter_v6 {
      * Get all stations by id
      *
      * @param id the id of the station
-     * @return the station
+     * @return a result with the station or an error
      * @throws IOException if the request fails
      */
-    public Station getStationById(Integer id, List<Parameter<?>> parameters) throws IOException {
+    public Result<Station, Error> getStationById(Integer id, List<Parameter<?>> parameters) throws IOException {
         String parameter = ParameterEvaluator.convertToString(parameters);
         Request request = getRequest(RequestPath.STATIONS_BY_ID);
         request.setApiEndpoint(String.format(request.getApiEndpoint(), id) + parameter);
         Result<JsonObject, Error> result = performRequest(request);
 
         if (!result.isSuccess()) {
-            throw new IOException(result.getError().getError());
+            log.error(String.format("Error while getting station by id %s: %s", id, result.getError().getError()));
+            return Result.error(result.getError());
         } else {
-            return gson.fromJson(result.getData(), Station.class);
+            return Result.success(gson.fromJson(result.getData(), Station.class));
         }
     }
 
