@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Random;
 
 public class DB_Adapter_v6Test {
 
@@ -78,6 +79,14 @@ public class DB_Adapter_v6Test {
         Assertions.assertNotNull(stationResult.getData().getName());
         Assertions.assertNotNull(stationResult.getData().getFederalState());
         Assertions.assertNotNull(stationResult.getData().getHasMobilityService());
+    }
+
+    @Test
+    public void testWrongInput() throws IOException {
+        Result<Station, Error> stationErrorResult = db_adapter_v6.getStationById(new Random().nextInt(), Collections.EMPTY_LIST);
+        Assertions.assertNotNull(stationErrorResult);
+        Assertions.assertFalse(stationErrorResult.isSuccess());
+        Assertions.assertNotNull(stationErrorResult.getError());
     }
 
     @Test

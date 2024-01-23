@@ -12,7 +12,7 @@ import de.olech2412.adapter.dbadapter.request.Request;
 import de.olech2412.adapter.dbadapter.request.RequestPath;
 import de.olech2412.adapter.dbadapter.request.parameters.Parameter;
 import de.olech2412.adapter.dbadapter.request.parameters.ParameterEvaluator;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ import java.util.List;
  * @author olech2412
  * @since 0.0.1
  */
-@Slf4j
+@Log4j2
 public class DB_Adapter_v6 {
 
     private final APIConfiguration apiConfiguration; // The configuration of the api
