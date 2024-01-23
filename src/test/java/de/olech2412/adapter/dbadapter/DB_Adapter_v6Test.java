@@ -1,10 +1,13 @@
 package de.olech2412.adapter.dbadapter;
 
+import de.olech2412.adapter.dbadapter.exception.Error;
+import de.olech2412.adapter.dbadapter.exception.Result;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import de.olech2412.adapter.dbadapter.request.parameters.Parameter;
 import de.olech2412.adapter.dbadapter.request.parameters.RequestParametersNames;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -21,12 +24,13 @@ public class DB_Adapter_v6Test {
 
     public void testGetArrivalsByStopId() throws IOException {
 
-        Trip[] arrivals = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
+        Result<Trip[], Error> arrivalsError = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
 
-        Assertions.assertNotNull(arrivals);
-        Assertions.assertNotEquals(0, arrivals.length);
+        Assertions.assertNotNull(arrivalsError);
+        Assert.assertTrue(arrivalsError.isSuccess());
+        Assertions.assertNotEquals(0, arrivalsError.getData().length);
 
-        Trip arrival = arrivals[0];
+        Trip arrival = arrivalsError.getData()[0];
         Assertions.assertNotNull(arrival);
         Assertions.assertNotNull(arrival.getStop());
         Assertions.assertNotNull(arrival.getCreatedAt());
@@ -37,12 +41,13 @@ public class DB_Adapter_v6Test {
     @Test
     public void testGetDeparturesByStopId() throws IOException {
 
-        Trip[] departures = db_adapter_v6.getDeparturesByStopId(stopId, Collections.EMPTY_LIST);
+        Result<Trip[], Error> departuresResult = db_adapter_v6.getDeparturesByStopId(stopId, Collections.EMPTY_LIST);
 
-        Assertions.assertNotNull(departures);
-        Assertions.assertNotEquals(0, departures.length);
+        Assertions.assertNotNull(departuresResult);
+        Assert.assertTrue(departuresResult.isSuccess());
+        Assertions.assertNotEquals(0, departuresResult.getData().length);
 
-        Trip departure = departures[0];
+        Trip departure = departuresResult.getData()[0];
         Assertions.assertNotNull(departure);
         Assertions.assertNotNull(departure.getStop());
         Assertions.assertNotNull(departure.getCreatedAt());
@@ -53,49 +58,50 @@ public class DB_Adapter_v6Test {
     @Test
     public void testGetStopById() throws IOException {
 
-        Stop stop = db_adapter_v6.getStopById(stopId, Collections.EMPTY_LIST);
+        Result<Stop, Error> stopResult = db_adapter_v6.getStopById(stopId, Collections.EMPTY_LIST);
 
-        Assertions.assertNotNull(stop);
-        Assertions.assertNotNull(stop.getCreatedAt());
-        Assertions.assertNotNull(stop.getName());
-        Assertions.assertNotNull(stop.getLines());
-        Assertions.assertNotNull(stop.getProducts());
+        Assertions.assertNotNull(stopResult);
+        Assert.assertTrue(stopResult.isSuccess());
+        Assertions.assertNotNull(stopResult.getData().getCreatedAt());
+        Assertions.assertNotNull(stopResult.getData().getName());
+        Assertions.assertNotNull(stopResult.getData().getLines());
+        Assertions.assertNotNull(stopResult.getData().getProducts());
     }
 
     @Test
     public void testGetStationById() throws IOException {
 
-        Station station = db_adapter_v6.getStationById(8010159, Collections.EMPTY_LIST);
+        Result<Station, Error> stationResult = db_adapter_v6.getStationById(8010159, Collections.EMPTY_LIST);
 
-        Assertions.assertNotNull(station);
-        Assertions.assertNotNull(station.getCreatedAt());
-        Assertions.assertNotNull(station.getName());
-        Assertions.assertNotNull(station.getFederalState());
-        Assertions.assertNotNull(station.getHasMobilityService());
+        Assertions.assertNotNull(stationResult);
+        Assert.assertTrue(stationResult.isSuccess());
+        Assertions.assertNotNull(stationResult.getData().getCreatedAt());
+        Assertions.assertNotNull(stationResult.getData().getName());
+        Assertions.assertNotNull(stationResult.getData().getFederalState());
+        Assertions.assertNotNull(stationResult.getData().getHasMobilityService());
     }
 
     @Test
     public void testWrongInput() throws IOException {
-        Assertions.assertThrows(IOException.class, () -> {
-            db_adapter_v6.getStationById(-1, Collections.EMPTY_LIST);
-        });
-
-        Assertions.assertThrows(IOException.class, () -> {
-            db_adapter_v6.getArrivalsByStopId(new Random().nextInt(), Collections.EMPTY_LIST);
-        });
+        Result<Station, Error> stationErrorResult = db_adapter_v6.getStationById(new Random().nextInt(), Collections.EMPTY_LIST);
+        Assertions.assertNotNull(stationErrorResult);
+        Assertions.assertFalse(stationErrorResult.isSuccess());
+        Assertions.assertNotNull(stationErrorResult.getError());
     }
 
     @Test
     public void testParameterResults() throws IOException {
-        Trip[] arrivals = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
-        Trip[] arrivalsWithParameter = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder().add(RequestParametersNames.RESULTS, 1).build());
+        Result<Trip[], Error> arrivalsResult = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
+        Result<Trip[], Error> arrivalsWithParameterResult = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder().add(RequestParametersNames.RESULTS, 1).build());
 
-        Assertions.assertNotNull(arrivals);
-        Assertions.assertNotNull(arrivalsWithParameter);
-        Assertions.assertNotEquals(0, arrivals.length);
-        Assertions.assertNotEquals(0, arrivalsWithParameter.length);
-        Assertions.assertNotEquals(arrivals.length, arrivalsWithParameter.length);
-        Assertions.assertEquals(1, arrivalsWithParameter.length);
+        Assertions.assertNotNull(arrivalsResult);
+        Assert.assertTrue(arrivalsResult.isSuccess());
+        Assertions.assertNotNull(arrivalsWithParameterResult);
+        Assert.assertTrue(arrivalsWithParameterResult.isSuccess());
+        Assertions.assertNotEquals(0, arrivalsResult.getData().length);
+        Assertions.assertNotEquals(0, arrivalsWithParameterResult.getData().length);
+        Assertions.assertNotEquals(arrivalsResult.getData().length, arrivalsWithParameterResult.getData().length);
+        Assertions.assertEquals(1, arrivalsWithParameterResult.getData().length);
     }
 
 }
