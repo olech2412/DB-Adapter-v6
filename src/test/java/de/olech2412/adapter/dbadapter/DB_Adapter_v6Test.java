@@ -20,8 +20,9 @@ public class DB_Adapter_v6Test {
     APIConfiguration apiConfiguration = new APIConfiguration();
     DB_Adapter_v6 db_adapter_v6 = new DB_Adapter_v6(apiConfiguration);
 
-    int stopId = 8503000;
+    int stopId = 8010205; // Leipzig Hbf
 
+    @Test
     public void testGetArrivalsByStopId() throws IOException {
 
         Result<Trip[], Error> arrivalsError = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
@@ -104,4 +105,124 @@ public class DB_Adapter_v6Test {
         Assertions.assertEquals(1, arrivalsWithParameterResult.getData().length);
     }
 
+    @Test
+    public void testParameterTrainType() throws IOException {
+        Result<Trip[], Error> arrivalsResult = db_adapter_v6.getArrivalsByStopId(stopId, Collections.EMPTY_LIST);
+        Result<Trip[], Error> arrivalsWithParameterResult = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, true)
+                .add(RequestParametersNames.NATIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        Assertions.assertNotNull(arrivalsResult);
+        Assert.assertTrue(arrivalsResult.isSuccess());
+        Assertions.assertNotNull(arrivalsWithParameterResult);
+        Assert.assertTrue(arrivalsWithParameterResult.isSuccess());
+        Assertions.assertNotEquals(0, arrivalsResult.getData().length);
+        Assertions.assertNotEquals(0, arrivalsWithParameterResult.getData().length);
+
+        for (Trip trip : arrivalsWithParameterResult.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("nationalExpress"));
+        }
+
+        Result<Trip[], Error> arrivalsWithParameterResult2 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, false)
+                .add(RequestParametersNames.NATIONAL, true)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        for (Trip trip : arrivalsWithParameterResult2.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("national"));
+        }
+
+        Result<Trip[], Error> arrivalsWithParameterResult3 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, false)
+                .add(RequestParametersNames.NATIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, true)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        for (Trip trip : arrivalsWithParameterResult3.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("regionalExpress"));
+        }
+
+        Result<Trip[], Error> arrivalsWithParameterResult4 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, false)
+                .add(RequestParametersNames.NATIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.REGIONAL, true)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        for (Trip trip : arrivalsWithParameterResult4.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("regional"));
+        }
+
+        Result<Trip[], Error> arrivalsWithParameterResult5 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, false)
+                .add(RequestParametersNames.NATIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.SUBURBAN, true)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        for (Trip trip : arrivalsWithParameterResult5.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("suburban"));
+        }
+
+        Result<Trip[], Error> arrivalsWithParameterResult6 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
+                .add(RequestParametersNames.NATIONAL_EXPRESS, false)
+                .add(RequestParametersNames.NATIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, true)
+                .add(RequestParametersNames.FERRY, true)
+                .add(RequestParametersNames.SUBWAY, true)
+                .add(RequestParametersNames.TRAM, true)
+                .add(RequestParametersNames.TAXI, true)
+                .add(RequestParametersNames.DURATION, 180)
+                .build());
+
+        for (Trip trip : arrivalsWithParameterResult6.getData()) {
+            Assertions.assertTrue(trip.getLine().getProduct().equals("tram") || trip.getLine().getProduct().equals("subway") || trip.getLine().getProduct().equals("bus") || trip.getLine().getProduct().equals("ferry") || trip.getLine().getProduct().equals("taxi"));
+        }
+
+
+    }
 }
