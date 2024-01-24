@@ -94,6 +94,6 @@ public class Main {
 }
 ```
 
-## Thanks to @derhuerst 🙏
+## Thanks to [@derhuerst](https://github.com/derhuerst) 🙏
 
 Thanks for providing this amazing REST API: https://github.com/derhuerst/db-rest 
