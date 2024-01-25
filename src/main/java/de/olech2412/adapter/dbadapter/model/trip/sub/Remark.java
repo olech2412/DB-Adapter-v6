@@ -1,13 +1,13 @@
 package de.olech2412.adapter.dbadapter.model.trip.sub;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Data
 @Embeddable
 public class Remark {
+
     @Column(name = "remark_type", length = 2000)
     private String type;
     @Column(name = "remark_code", length = 2000)

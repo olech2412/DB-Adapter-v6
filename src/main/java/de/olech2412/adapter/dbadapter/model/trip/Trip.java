@@ -9,7 +9,6 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Entity
@@ -17,8 +16,8 @@ import java.util.UUID;
 public class Trip {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "trip_id",nullable = true)
     private String tripId;
@@ -26,40 +25,59 @@ public class Trip {
     @ManyToOne
     @JoinColumn(name = "stop_uuid")
     private Stop stop;
+
     @Column(name = "trip_when", nullable = true)
     private String when;
+
     @Column(name = "trip_planned_when", nullable = true)
     private String plannedWhen;
+
     @Column(name = "trip_prognosed_when", nullable = true)
     private String prognosedWhen;
+
     @Column(name = "trip_delay", nullable = true)
     private Integer delay;
+
     @Column(name = "trip_platform", nullable = true)
     private String platform;
+
     @Column(name = "trip_planned_platform", nullable = true)
     private String plannedPlatform;
+
     @Column(name = "trip_prognosed_platform", nullable = true)
     private String prognosedPlatform;
+
     @Column(name = "trip_prognosis_type", nullable = true)
     private String prognosisType;
+
     @Column(name = "trip_direction", nullable = true)
     private String direction;
+
     @Column(name = "trip_provenance", nullable = true)
     private String provenance;
+
     @Column(name = "trip_line", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "line_id", nullable = true)
     private Line line;
+
     @ManyToOne
-    @JoinColumn(name = "origin_uuid", nullable = true)
+    @JoinColumn(name = "origin_id", nullable = true)
     private Stop origin;
+
     @ManyToOne
-    @JoinColumn(name = "destination_uuid", nullable = true)
+    @JoinColumn(name = "destination_id", nullable = true)
     private Stop destination;
+
     @Column(name = "trip_cancelled", nullable = true)
     private Boolean cancelled;
+
     @Column(name = "trip_load_factor", nullable = true)
     private String loadFactor;
-    @ElementCollection
+
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<Remark> remarks = new ArrayList<>();
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Override
