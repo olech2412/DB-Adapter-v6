@@ -1,25 +1,35 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * The geographicCoordinates are the coordinates of the station
  */
-@Data
-@Embeddable
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Entity
 public class GeographicCoordinates {
-    @Column(name = "geographiccoordinates_type", nullable = true)
-    private String type;
-    @Column(name = "geographiccoordinates_coordinates", nullable = true)
-    private float[] coordinates;
 
-    @Override
-    public String toString() {
-        return "GeographicCoordinates{" +
-                "type='" + type + '\'' +
-                ", coordinates=" + coordinates +
-                '}';
-    }
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "geographiccoordinates_type")
+    private String type;
+
+    @Column(name = "geographiccoordinates_coordinates_latitude")
+    private float latitude;
+
+    @Column(name = "geographiccoordinates_coordinates_longitude")
+    private float longitude;
+
 }

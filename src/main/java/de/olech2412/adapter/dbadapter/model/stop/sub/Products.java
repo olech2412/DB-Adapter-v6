@@ -3,57 +3,43 @@ package de.olech2412.adapter.dbadapter.model.stop.sub;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * Products which are available at this stop.
  */
 @Data
 @Embeddable
+@ToString
 public class Products {
 
-    @Column(name = "stop_products_nationalExpress", nullable = true)
+    @Column(name = "stop_products_nationalExpress")
     private boolean nationalExpress;
 
-    @Column(name = "stop_products_national", nullable = true)
+    @Column(name = "stop_products_national")
     private boolean national;
 
-    @Column(name = "stop_products_regionalExp", nullable = true)
+    @Column(name = "stop_products_regionalExp")
     private boolean regionalExp;
 
-    @Column(name = "stop_products_regional", nullable = true)
+    @Column(name = "stop_products_regional")
     private boolean regional;
 
-    @Column(name = "stop_products_suburban", nullable = true)
+    @Column(name = "stop_products_suburban")
     private boolean suburban;
 
-    @Column(name = "stop_products_bus", nullable = true)
+    @Column(name = "stop_products_bus")
     private boolean bus;
 
-    @Column(name = "stop_products_ferry", nullable = true)
+    @Column(name = "stop_products_ferry")
     private boolean ferry;
 
-    @Column(name = "stop_products_subway", nullable = true)
+    @Column(name = "stop_products_subway")
     private boolean subway;
 
-    @Column(name = "stop_products_tram", nullable = true)
+    @Column(name = "stop_products_tram")
     private boolean tram;
 
-    @Column(name = "stop_products_taxi", nullable = true)
+    @Column(name = "stop_products_taxi")
     private boolean taxi;
-
-    @Override
-    public String toString() {
-        return "Products{" +
-                "nationalExpress=" + nationalExpress +
-                ", national=" + national +
-                ", regionalExp=" + regionalExp +
-                ", regional=" + regional +
-                ", suburban=" + suburban +
-                ", bus=" + bus +
-                ", ferry=" + ferry +
-                ", subway=" + subway +
-                ", tram=" + tram +
-                ", taxi=" + taxi +
-                '}';
-    }
 }

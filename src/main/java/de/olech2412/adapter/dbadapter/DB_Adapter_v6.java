@@ -4,8 +4,11 @@ import com.google.gson.*;
 import de.olech2412.adapter.dbadapter.exception.Error;
 import de.olech2412.adapter.dbadapter.exception.Result;
 import de.olech2412.adapter.dbadapter.exception.api.ApiError;
+import de.olech2412.adapter.dbadapter.gsonadapter.GeographicCoordinatesAdapter;
 import de.olech2412.adapter.dbadapter.gsonadapter.LocalDateTimeAdapter;
+import de.olech2412.adapter.dbadapter.gsonadapter.LocalDateTimeAdapterForTrip;
 import de.olech2412.adapter.dbadapter.model.station.Station;
+import de.olech2412.adapter.dbadapter.model.station.sub.GeographicCoordinates;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import de.olech2412.adapter.dbadapter.request.Request;
@@ -39,6 +42,8 @@ public class DB_Adapter_v6 {
     // The gson object that is used to parse the response
     private final Gson gson = new GsonBuilder()
             .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapterForTrip())
+            .registerTypeAdapter(GeographicCoordinates.class, new GeographicCoordinatesAdapter())
             .create();
 
     public DB_Adapter_v6(APIConfiguration apiConfiguration) {
@@ -85,7 +90,6 @@ public class DB_Adapter_v6 {
             return Result.error(result.getError());
         } else {
             JsonArray jsonArray = result.getData().getAsJsonArray("arrivals");
-            Result<Trip[], Error> success = Result.success(gson.fromJson(jsonArray, Trip[].class));
             return Result.success(gson.fromJson(jsonArray, Trip[].class));
         }
     }
@@ -107,6 +111,7 @@ public class DB_Adapter_v6 {
             log.error(String.format("Error while getting stop by id %s: %s", id, result.getError().getError()));
             return Result.error(result.getError());
         } else {
+            Result<Stop, Error> stopResult = Result.success(gson.fromJson(result.getData(), Stop.class));
             return Result.success(gson.fromJson(result.getData(), Stop.class));
         }
     }

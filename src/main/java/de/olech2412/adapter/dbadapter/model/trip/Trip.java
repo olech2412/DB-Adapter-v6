@@ -4,15 +4,28 @@ import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
 import de.olech2412.adapter.dbadapter.model.trip.sub.Remark;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Table(name = "trips", indexes = {@Index(name = "created_at_index", columnList = "createdAt")})
+@Table(name = "trips", indexes = {
+        @Index(name = "created_at_index", columnList = "createdAt"),
+        @Index(name = "idx_trip_trip_when", columnList = "trip_when"),
+        @Index(name = "idx_trip_trip_planned_when", columnList = "trip_planned_when"),
+        @Index(name = "idx_trip_trip_prognosed_when", columnList = "trip_prognosed_when"),
+        @Index(name = "idx_trip_stop_id", columnList = "stop_id")
+})
 public class Trip {
 
     @Id
@@ -23,98 +36,77 @@ public class Trip {
     private String tripId;
 
     @ManyToOne
-    @JoinColumn(name = "stop_uuid")
+    @JoinColumn(name = "stop_id")
     private Stop stop;
 
-    @Column(name = "trip_when", nullable = true)
-    private String when;
+    @Column(name = "trip_when")
+    private LocalDateTime when;
 
-    @Column(name = "trip_planned_when", nullable = true)
-    private String plannedWhen;
+    @Column(name = "trip_planned_when")
+    private LocalDateTime plannedWhen;
 
-    @Column(name = "trip_prognosed_when", nullable = true)
-    private String prognosedWhen;
+    @Column(name = "trip_prognosed_when")
+    private LocalDateTime prognosedWhen;
 
-    @Column(name = "trip_delay", nullable = true)
+    @Column(name = "trip_delay")
     private Integer delay;
 
-    @Column(name = "trip_platform", nullable = true)
+    @Column(name = "trip_platform")
     private String platform;
 
-    @Column(name = "trip_planned_platform", nullable = true)
+    @Column(name = "trip_planned_platform")
     private String plannedPlatform;
 
-    @Column(name = "trip_prognosed_platform", nullable = true)
+    @Column(name = "trip_prognosed_platform")
     private String prognosedPlatform;
 
-    @Column(name = "trip_prognosis_type", nullable = true)
+    @Column(name = "trip_prognosis_type")
     private String prognosisType;
 
-    @Column(name = "trip_direction", nullable = true)
+    @Column(name = "trip_direction")
     private String direction;
 
-    @Column(name = "trip_provenance", nullable = true)
+    @Column(name = "trip_provenance")
     private String provenance;
 
-    @Column(name = "trip_line", nullable = true)
     @ManyToOne
-    @JoinColumn(name = "line_id", nullable = true)
+    @JoinColumn(name = "line_id")
     private Line line;
 
     @ManyToOne
-    @JoinColumn(name = "origin_id", nullable = true)
+    @JoinColumn(name = "origin_id")
     private Stop origin;
 
     @ManyToOne
-    @JoinColumn(name = "destination_id", nullable = true)
+    @JoinColumn(name = "destination_id")
     private Stop destination;
 
-    @Column(name = "trip_cancelled", nullable = true)
+    @Column(name = "trip_cancelled")
     private Boolean cancelled;
 
-    @Column(name = "trip_load_factor", nullable = true)
+    @Column(name = "trip_load_factor")
     private String loadFactor;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "trip_remark",
+            joinColumns = @JoinColumn(name = "trip_id"),
+            inverseJoinColumns = @JoinColumn(name = "remark_id"))
+    @ToString.Exclude
     private List<Remark> remarks = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Override
-    public String toString() {
-        return "Trip{" +
-                "tripId='" + tripId + '\'' +
-                ", stop=" + stop +
-                ", when='" + when + '\'' +
-                ", plannedWhen='" + plannedWhen + '\'' +
-                ", prognosedWhen='" + prognosedWhen + '\'' +
-                ", delay=" + delay +
-                ", platform='" + platform + '\'' +
-                ", plannedPlatform='" + plannedPlatform + '\'' +
-                ", prognosedPlatform='" + prognosedPlatform + '\'' +
-                ", prognosisType='" + prognosisType + '\'' +
-                ", direction='" + direction + '\'' +
-                ", provenance='" + provenance + '\'' +
-                ", line=" + line +
-                ", origin=" + origin +
-                ", destination=" + destination +
-                ", cancelled=" + cancelled +
-                ", loadFactor='" + loadFactor + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return getId() != null && Objects.equals(getId(), trip.getId());
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Trip trip)) return false;
-
-        if (getTripId() != null ? !getTripId().equals(trip.getTripId()) : trip.getTripId() != null) return false;
-        if (getStop() != null ? !getStop().equals(trip.getStop()) : trip.getStop() != null) return false;
-        if (getWhen() != null ? !getWhen().equals(trip.getWhen()) : trip.getWhen() != null) return false;
-        if (getPlannedWhen() != null ? !getPlannedWhen().equals(trip.getPlannedWhen()) : trip.getPlannedWhen() != null)
-            return false;
-
-        return true;
+    public final int hashCode() {
+        return getClass().hashCode();
     }
 }
