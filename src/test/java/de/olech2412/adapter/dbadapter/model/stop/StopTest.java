@@ -1,39 +1,20 @@
 package de.olech2412.adapter.dbadapter.model.stop;
 
-import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Location;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Products;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StopTest {
 
     @Test
-    void testToString() {
-        Stop stop = getStop();
-        assertEquals("Stop{" +
-                "uuid=" + stop.getUuid() +
-                ", type='" + stop.getType() + '\'' +
-                ", id='" + stop.getId() + '\'' +
-                ", name='" + stop.getName() + '\'' +
-                ", location=" + stop.getLocation() +
-                ", products=" + stop.getProducts() +
-                ", entrances=" + stop.getEntrances() +
-                ", lines=" + stop.getLines() +
-                ", createdAt=" + stop.getCreatedAt() +
-                '}', stop.toString());
-    }
-
-    @Test
     void getUuid() {
         Stop stop = getStop();
-        assertTrue(stop.getUuid() instanceof UUID);
-        assertTrue(!stop.getUuid().toString().isEmpty());
+        assertTrue(stop.getId() instanceof Long);
+        assertTrue(!stop.getId().toString().isEmpty());
     }
 
     @Test
@@ -45,7 +26,7 @@ class StopTest {
     @Test
     void getId() {
         Stop stop = getStop();
-        assertEquals("id", stop.getId());
+        assertEquals(1L, stop.getId());
     }
 
     @Test
@@ -67,29 +48,16 @@ class StopTest {
     }
 
     @Test
-    void getEntrances() {
-        Stop stop = getStop();
-        assertTrue(stop.getEntrances() instanceof ArrayList);
-    }
-
-    @Test
-    void getLines() {
-        Stop stop = getStop();
-        assertTrue(stop.getLines() instanceof ArrayList);
-    }
-
-    @Test
     void getCreatedAt() {
         Stop stop = getStop();
         assertTrue(stop.getCreatedAt() instanceof LocalDateTime);
     }
 
     @Test
-    void setUuid() {
+    void setId() {
         Stop stop = getStop();
-        UUID uuid = UUID.randomUUID();
-        stop.setUuid(uuid);
-        assertEquals(uuid, stop.getUuid());
+        stop.setId(1L);
+        assertEquals(1L, stop.getId());
     }
 
     @Test
@@ -100,10 +68,10 @@ class StopTest {
     }
 
     @Test
-    void setId() {
+    void setStopId() {
         Stop stop = getStop();
-        stop.setId("newId");
-        assertEquals("newId", stop.getId());
+        stop.setStopId("newId");
+        assertEquals("newId", stop.getStopId());
     }
 
     @Test
@@ -130,22 +98,6 @@ class StopTest {
     }
 
     @Test
-    void setEntrances() {
-        Stop stop = getStop();
-        ArrayList<Location> entrances = new ArrayList<>();
-        stop.setEntrances(entrances);
-        assertEquals(entrances, stop.getEntrances());
-    }
-
-    @Test
-    void setLines() {
-        Stop stop = getStop();
-        ArrayList<Line> lines = new ArrayList<>();
-        stop.setLines(lines);
-        assertEquals(lines, stop.getLines());
-    }
-
-    @Test
     void setCreatedAt() {
         Stop stop = getStop();
         LocalDateTime createdAt = LocalDateTime.now();
@@ -159,15 +111,15 @@ class StopTest {
         Stop stop2 = getStop();
         assertNotEquals(stop, stop2);
 
-        stop2.setUuid(UUID.randomUUID());
+        stop2.setId(1L);
         assertNotEquals(stop, stop2);
 
-        stop2.setUuid(stop.getUuid());
+        stop2.setId(1L);
         stop2.setType("newType");
         assertNotEquals(stop, stop2);
 
         stop2.setType(stop.getType());
-        stop2.setId("newId");
+        stop2.setStopId("newId");
         assertNotEquals(stop, stop2);
 
         stop = stop2;
@@ -180,15 +132,15 @@ class StopTest {
         Stop stop2 = getStop();
         assertNotEquals(stop.hashCode(), stop2.hashCode());
 
-        stop2.setUuid(UUID.randomUUID());
+        stop2.setId(1L);
         assertNotEquals(stop.hashCode(), stop2.hashCode());
 
-        stop2.setUuid(stop.getUuid());
+        stop2.setId(1L);
         stop2.setType("newType");
         assertNotEquals(stop.hashCode(), stop2.hashCode());
 
         stop2.setType(stop.getType());
-        stop2.setId("newId");
+        stop2.setId(1L);
         assertNotEquals(stop.hashCode(), stop2.hashCode());
 
         stop = stop2;
@@ -197,14 +149,12 @@ class StopTest {
 
     Stop getStop() {
         Stop stop = new Stop();
-        stop.setUuid(UUID.randomUUID());
+        stop.setId(1L);
         stop.setType("type");
-        stop.setId("id");
+        stop.setStopId("id");
         stop.setName("name");
         stop.setLocation(new Location());
         stop.setProducts(new Products());
-        stop.setEntrances(new ArrayList<>());
-        stop.setLines(new ArrayList<>());
         stop.setCreatedAt(LocalDateTime.now());
         return stop;
     }

@@ -65,7 +65,6 @@ public class DB_Adapter_v6Test {
         Assert.assertTrue(stopResult.isSuccess());
         Assertions.assertNotNull(stopResult.getData().getCreatedAt());
         Assertions.assertNotNull(stopResult.getData().getName());
-        Assertions.assertNotNull(stopResult.getData().getLines());
         Assertions.assertNotNull(stopResult.getData().getProducts());
     }
 

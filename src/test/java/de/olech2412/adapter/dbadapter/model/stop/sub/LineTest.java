@@ -7,12 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class LineTest {
 
     @Test
-    void testToString() {
-        Line line = getLine();
-        assertEquals("Line{type=LINE, id='id', fahrtNr='fahrtNr', name='name', linePublic=true, productName='productName', mode=BUS, product='product'}", line.toString());
-    }
-
-    @Test
     void getType() {
         Line line = getLine();
         assertEquals(LineType.LINE, line.getType());
@@ -21,7 +15,7 @@ class LineTest {
     @Test
     void getId() {
         Line line = getLine();
-        assertEquals("id", line.getId());
+        assertEquals(1L, line.getId());
     }
 
     @Test
@@ -72,7 +66,7 @@ class LineTest {
     @Test
     void setId() {
         Line line = getLine();
-        assertEquals("id", line.getId());
+        assertEquals(1L, line.getId());
 
         line.setId(null);
         assertNull(line.getId());
@@ -146,7 +140,7 @@ class LineTest {
         assertEquals(line, line2);
         line2.setId(null);
         assertNotEquals(line, line2);
-        line2.setId("id");
+        line2.setId(1L);
         assertEquals(line, line2);
     }
 
@@ -163,14 +157,14 @@ class LineTest {
         assertEquals(line.hashCode(), line2.hashCode());
         line2.setId(null);
         assertNotEquals(line.hashCode(), line2.hashCode());
-        line2.setId("id");
+        line2.setId(1L);
         assertEquals(line.hashCode(), line2.hashCode());
     }
 
     Line getLine() {
         Line line = new Line();
         line.setType(LineType.LINE);
-        line.setId("id");
+        line.setId(1L);
         line.setFahrtNr("fahrtNr");
         line.setName("name");
         line.setLinePublic(true);

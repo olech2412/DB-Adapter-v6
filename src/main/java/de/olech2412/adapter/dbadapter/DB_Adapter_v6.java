@@ -85,6 +85,7 @@ public class DB_Adapter_v6 {
             return Result.error(result.getError());
         } else {
             JsonArray jsonArray = result.getData().getAsJsonArray("arrivals");
+            Result<Trip[], Error> success = Result.success(gson.fromJson(jsonArray, Trip[].class));
             return Result.success(gson.fromJson(jsonArray, Trip[].class));
         }
     }
