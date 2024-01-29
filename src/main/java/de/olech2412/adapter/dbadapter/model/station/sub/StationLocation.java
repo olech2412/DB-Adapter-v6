@@ -1,9 +1,7 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.google.gson.annotations.SerializedName;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,30 +10,32 @@ import lombok.ToString;
 import java.util.Objects;
 
 /**
- * Office of the station.
+ * The location is the geographical location of the station.
  */
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @Entity
-public class TimeTableOffice {
+public class StationLocation {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "location_id")
+    @SerializedName("station_location_id")
     private Long id;
 
-    @Column(name = "timetableoffice_email")
-    private String email;
+    @Column(name = "location_latitude")
+    private float latitude;
 
-    @Column(name = "timetableoffice_name")
-    private String name;
+    @Column(name = "location_longitude")
+    private float longitude;
 
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TimeTableOffice that = (TimeTableOffice) o;
+        StationLocation that = (StationLocation) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
 

@@ -32,20 +32,17 @@ public enum Mode {
         throw new IOException("Cannot deserialize Mode");
     }
 
-    // Ihre benutzerdefinierte EnumTypeAdapter-Klasse, die das TypeAdapter-Interface implementiert
+    // custom ModeTypeAdapter for gson
     public static class ModeTypeAdapter extends TypeAdapter<Mode> {
 
         @Override
         public void write(JsonWriter out, Mode value) throws IOException {
-            // Schreiben Sie den Enum-Wert als String in den JsonWriter
             out.value(value.toValue());
         }
 
         @Override
         public Mode read(JsonReader in) throws IOException {
-            // Lesen Sie den String-Wert aus dem JsonReader
             String value = in.nextString();
-            // Verwenden Sie die forValue-Methode, um den entsprechenden Enum-Wert zu erhalten oder eine IOException zu werfen
             return Mode.forValue(value);
         }
     }
