@@ -1,15 +1,15 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
 import com.google.gson.annotations.SerializedName;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import de.olech2412.adapter.dbadapter.model.station.Station;
+import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -23,7 +23,7 @@ import java.util.Objects;
 public class Operator {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE)
     @SerializedName("operator_id")
     private Long id;
 
@@ -36,6 +36,14 @@ public class Operator {
 
     @Column(name = "operator_name", unique = true)
     private String name;
+
+    @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Station> stations;
+
+    @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Line> lines;
 
     @Override
     public final boolean equals(Object o) {

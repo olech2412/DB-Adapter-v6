@@ -1,11 +1,13 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,7 +21,7 @@ import java.util.Objects;
 public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "address_city")
@@ -30,6 +32,10 @@ public class Address {
 
     @Column(name = "address_street")
     private String street;
+
+    @OneToMany(mappedBy = "address", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Station> stations;
 
     @Override
     public final boolean equals(Object o) {

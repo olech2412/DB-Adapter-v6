@@ -20,7 +20,7 @@ import lombok.ToString;
 public class GeographicCoordinates {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "geographiccoordinates_type")

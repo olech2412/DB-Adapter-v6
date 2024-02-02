@@ -24,15 +24,16 @@ import java.util.Objects;
         @Index(name = "idx_trip_trip_when", columnList = "trip_when"),
         @Index(name = "idx_trip_trip_planned_when", columnList = "trip_planned_when"),
         @Index(name = "idx_trip_trip_prognosed_when", columnList = "trip_prognosed_when"),
-        @Index(name = "idx_trip_stop_id", columnList = "stop_id")
+        @Index(name = "idx_trip_stop_id", columnList = "stop_id"),
+        @Index(name = "idx_trip_line_id", columnList = "line_id")
 })
 public class Trip {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(name = "trip_id",nullable = true)
+    @Column(name = "trip_id")
     private String tripId;
 
     @ManyToOne
@@ -87,7 +88,7 @@ public class Trip {
     @Column(name = "trip_load_factor")
     private String loadFactor;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "trip_remark",
             joinColumns = @JoinColumn(name = "trip_id"),

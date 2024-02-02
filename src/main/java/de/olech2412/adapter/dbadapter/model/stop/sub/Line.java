@@ -2,6 +2,7 @@ package de.olech2412.adapter.dbadapter.model.stop.sub;
 
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.sub.Operator;
+import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,17 +23,16 @@ import java.util.Objects;
 @Entity
 public class Line {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @SerializedName("line_id") // for gson because clash with lineId
-    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "operator_id")
+    Operator operator;
 
     @Column(name = "stop_line_type")
     private String type;
-
-    @Column(name = "stop_line_id", unique = true)
-    @SerializedName("id") // for gson because clash with id
-    private String lineId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SerializedName("line_id") // for gson because clash with lineId
+    private Long id;
 
     @Column(name = "stop_line_fahrtNr")
     private String fahrtNr;
@@ -44,17 +45,20 @@ public class Line {
 
     @Column(name = "stop_line_productName")
     private String productName;
-
-    @Column(name = "stop_line_mode")
-    private Mode mode;
+    @Column(name = "stop_line_id")
+    @SerializedName("id") // for gson because clash with id
+    private String lineId;
 
     @Column(name = "stop_line_product")
     private String product;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Operator operator;
+    @Column(name = "stop_line_mode")
+    @Enumerated(EnumType.STRING)
+    private Mode mode;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+    @OneToMany(mappedBy = "line", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Trip> trips;
 
     @Override
     public final boolean equals(Object o) {

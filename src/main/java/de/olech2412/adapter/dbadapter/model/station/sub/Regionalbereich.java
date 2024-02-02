@@ -1,10 +1,13 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 /**
  * The regional area is an organisational unit of Deutsche Bahn that is responsible for the coordination and control of railway operations.
@@ -17,7 +20,7 @@ import lombok.ToString;
 public class Regionalbereich {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Column(name = "regionalbereich_number")
@@ -28,6 +31,10 @@ public class Regionalbereich {
 
     @Column(name = "regionalbereich_shortname")
     private String shortName;
+
+    @OneToMany(mappedBy = "regionalbereich", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Station> stations;
 
     @Override
     public final int hashCode() {

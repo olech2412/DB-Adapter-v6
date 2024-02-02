@@ -27,7 +27,7 @@ import java.util.Objects;
 public class Stop {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stop_id") // for gson because clash with stopId (see below)
     private Long id;
 
@@ -41,7 +41,8 @@ public class Stop {
     @Column(name = "stop_name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "stop_location_id")
     private StopLocation location;
 
     @Embedded

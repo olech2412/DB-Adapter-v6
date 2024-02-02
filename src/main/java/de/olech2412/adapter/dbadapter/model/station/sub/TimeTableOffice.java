@@ -1,14 +1,13 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import de.olech2412.adapter.dbadapter.model.station.Station;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,7 +21,7 @@ import java.util.Objects;
 public class TimeTableOffice {
 
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "timetableoffice_email")
@@ -30,6 +29,10 @@ public class TimeTableOffice {
 
     @Column(name = "timetableoffice_name")
     private String name;
+
+    @OneToMany(mappedBy = "timeTableOffice", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Station> stations;
 
     @Override
     public final boolean equals(Object o) {
