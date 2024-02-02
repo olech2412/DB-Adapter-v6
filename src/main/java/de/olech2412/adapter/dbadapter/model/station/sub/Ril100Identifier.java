@@ -22,7 +22,7 @@ import java.util.Objects;
 public class Ril100Identifier {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String rilIdentifier;
@@ -33,7 +33,9 @@ public class Ril100Identifier {
     @Column(name = "ril100identifier_hasSteamPermission")
     private boolean hasSteamPermission;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "geographiccoordinates_id")
+    @ToString.Exclude
     private GeographicCoordinates geographicCoordinates;
 
     @ManyToOne

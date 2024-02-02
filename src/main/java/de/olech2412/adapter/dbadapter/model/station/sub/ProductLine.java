@@ -1,13 +1,13 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import de.olech2412.adapter.dbadapter.model.station.Station;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,12 +17,17 @@ import lombok.ToString;
 public class ProductLine {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private String productLine;
 
     private String segment;
+
+    @OneToMany(mappedBy = "productLine", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Station> stations;
+
 
     @Override
     public final int hashCode() {

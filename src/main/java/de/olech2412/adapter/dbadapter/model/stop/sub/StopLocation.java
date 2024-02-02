@@ -1,12 +1,14 @@
 package de.olech2412.adapter.dbadapter.model.stop.sub;
 
 import com.google.gson.annotations.SerializedName;
+import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,7 +22,7 @@ import java.util.Objects;
 public class StopLocation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stop_location_id")
     private Long id;
 
@@ -29,6 +31,11 @@ public class StopLocation {
 
     @Column(name = "stop_location_longitude")
     private double longitude;
+
+    @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Stop> stopList;
+
 
     @Override
     public final boolean equals(Object o) {

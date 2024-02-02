@@ -4,9 +4,10 @@ import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.sub.*;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,34 +17,45 @@ import java.util.List;
  */
 @Getter
 @Setter
-@Data
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "stations", indexes = {
         @Index(name = "idx_station_station_id", columnList = "station_id")
 })
 public class Station {
 
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    Address address; // Address of the station
+
     @OneToOne(cascade = CascadeType.ALL)
     StationLocation location; // Location of the station
+
     @ManyToOne
     @JoinColumn(name = "operator_id")
     Operator operator; // Operator of the station
-    @OneToOne(cascade = CascadeType.ALL)
-    Address address; // Address of the station
+    @ManyToOne
+    @JoinColumn(name = "timeTableOffice_id")
+    TimeTableOffice timeTableOffice; // Timetable office of the station
+
     @ManyToOne
     @JoinColumn(name = "regionalbereich_id")
     Regionalbereich regionalbereich; // Regional area of the station
-    @OneToOne(cascade = CascadeType.ALL)
-    TimeTableOffice timeTableOffice; // Timetable office of the station
+    @ManyToOne
+    @JoinColumn(name = "stationManagement_id")
+    StationManagement stationManagement; // Station management of the station
+
     @ManyToOne
     @JoinColumn(name = "szentrale_id")
     Szentrale szentrale; // Central office of the station
-    @OneToOne(cascade = CascadeType.ALL)
-    StationManagement stationManagement; // Station management of the station
+    @OneToMany(mappedBy = "station")
+    List<Stop> stops; // List of stops of the station
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stationId")
     private long id; // Unique identifier for the station
+
     @Column(name = "station_id", unique = true, nullable = false)
     @SerializedName("id")
     private Long stationId; // Station ID
@@ -99,60 +111,20 @@ public class Station {
     private String federalState; // Federal state where the station is located
 
     private LocalDateTime createdAt = LocalDateTime.now(); // Creation date and time of the station
-
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "station")
+    @ToString.Exclude
     private List<Ril100Identifier> ril100Identifiers; // List of Ril100 identifiers of the station
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "station")
+    @ToString.Exclude
     private List<Stop> stop;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "productline_id")
     private ProductLine productLine;
 
-    /**
-     * Returns a string representation of the Station object.
-     *
-     * @return a string representation of the Station object.
-     */
     @Override
-    public String toString() {
-        return "Station{" +
-                "id=" + stationId +
-                ", id='" + stationId + '\'' +
-                ", relevance=" + relevance +
-                ", score=" + score +
-                ", weight=" + weight +
-                ", type='" + type + '\'' +
-                ", ril100='" + ril100 + '\'' +
-                ", nr=" + nr +
-                ", name='" + name + '\'' +
-                ", location=" + location +
-                ", operator=" + operator +
-                ", address=" + address +
-                ", category=" + category +
-                ", priceCategory=" + priceCategory +
-                ", hasParking=" + hasParking +
-                ", hasBicycleParking=" + hasBicycleParking +
-                ", hasLocalPublicTransport=" + hasLocalPublicTransport +
-                ", hasPublicFacilities=" + hasPublicFacilities +
-                ", hasLockerSystem=" + hasLockerSystem +
-                ", hasTaxiRank=" + hasTaxiRank +
-                ", hasTravelNecessities=" + hasTravelNecessities +
-                ", hasSteplessAccess='" + hasSteplessAccess + '\'' +
-                ", hasMobilityService='" + hasMobilityService + '\'' +
-                ", hasWiFi=" + hasWiFi +
-                ", hasTravelCenter=" + hasTravelCenter +
-                ", hasRailwayMission=" + hasRailwayMission +
-                ", hasDBLounge=" + hasDBLounge +
-                ", hasLostAndFound=" + hasLostAndFound +
-                ", hasCarRental=" + hasCarRental +
-                ", federalState='" + federalState + '\'' +
-                ", createdAt=" + createdAt +
-                ", regionalbereich=" + regionalbereich +
-                ", timeTableOffice=" + timeTableOffice +
-                ", szentrale=" + szentrale +
-                ", stationManagement=" + stationManagement +
-                ", ril100Identifiers=" + ril100Identifiers +
-                '}';
+    public final int hashCode() {
+        return getClass().hashCode();
     }
 }

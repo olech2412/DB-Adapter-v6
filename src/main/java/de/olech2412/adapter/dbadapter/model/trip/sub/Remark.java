@@ -23,7 +23,7 @@ import java.util.Objects;
 public class Remark {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "remark_type", length = 2000)

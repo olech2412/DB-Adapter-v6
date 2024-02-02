@@ -20,7 +20,7 @@ import java.util.Objects;
 public class StationLocation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "location_id")
     @SerializedName("station_location_id")
     private Long id;
