@@ -21,6 +21,12 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
+@Table(name = "Line", indexes = {
+        @Index(name = "idx_line_id", columnList = "id"),
+        @Index(name = "idx_line_stop_line_name", columnList = "stop_line_name"),
+        @Index(name = "idx_line_stop_line_id", columnList = "stop_line_id"),
+        @Index(name = "idx_line_stop_line_fahrtnr", columnList = "stop_line_fahrtNr")
+})
 public class Line {
 
     @ManyToOne
