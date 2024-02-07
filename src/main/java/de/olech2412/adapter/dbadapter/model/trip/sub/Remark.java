@@ -18,7 +18,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "Remark", indexes = {
-        @Index(name = "idx_remark_remark_text", columnList = "remark_text")
+        @Index(name = "idx_remark_remark_text", columnList = "remark_text"),
+        @Index(name = "idx_remark_id", columnList = "id"),
+        @Index(name = "idx_remark_remark_type", columnList = "remark_type")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "uc_remark_remark_text", columnNames = {"remark_text"})
 })
 public class Remark {
 

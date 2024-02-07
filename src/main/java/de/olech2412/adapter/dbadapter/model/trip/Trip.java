@@ -25,7 +25,8 @@ import java.util.Objects;
         @Index(name = "idx_trip_trip_planned_when", columnList = "trip_planned_when"),
         @Index(name = "idx_trip_trip_prognosed_when", columnList = "trip_prognosed_when"),
         @Index(name = "idx_trip_stop_id", columnList = "stop_id"),
-        @Index(name = "idx_trip_line_id", columnList = "line_id")
+        @Index(name = "idx_trip_line_id", columnList = "line_id"),
+        @Index(name = "idx_trip_trip_id", columnList = "trip_id")
 })
 public class Trip {
 

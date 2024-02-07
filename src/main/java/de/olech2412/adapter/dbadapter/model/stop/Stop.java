@@ -22,7 +22,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "stops", indexes = {
-        @Index(name = "idx_stop_stop_id", columnList = "stop_id")
+        @Index(name = "idx_stop_stop_id", columnList = "stop_id"),
+        @Index(name = "idx_stop_stop_name", columnList = "stop_name")
 })
 public class Stop {
 
