@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,6 +19,7 @@ public class ProductLine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private long id;
 
     private String productLine;
@@ -26,6 +28,7 @@ public class ProductLine {
 
     @OneToMany(mappedBy = "productLine", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Station> stations;
 
 

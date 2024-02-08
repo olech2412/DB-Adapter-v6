@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.stop.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import jakarta.persistence.*;
@@ -24,6 +25,7 @@ public class StopLocation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stop_location_id")
+    @JsonIgnore
     private Long id;
 
     @Column(name = "stop_location_latitude")
@@ -34,6 +36,7 @@ public class StopLocation {
 
     @OneToMany(mappedBy = "location", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Stop> stopList;
 
 

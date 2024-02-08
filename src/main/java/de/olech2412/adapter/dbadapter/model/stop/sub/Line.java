@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.stop.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.sub.Operator;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
@@ -35,9 +36,11 @@ public class Line {
 
     @Column(name = "stop_line_type")
     private String type;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("line_id") // for gson because clash with lineId
+    @JsonIgnore
     private Long id;
 
     @Column(name = "stop_line_fahrtNr")
@@ -51,19 +54,23 @@ public class Line {
 
     @Column(name = "stop_line_productName")
     private String productName;
+
     @Column(name = "stop_line_id")
     @SerializedName("id") // for gson because clash with id
     private String lineId;
 
     @Column(name = "stop_line_product")
     private String product;
+
     @Column(name = "stop_line_mode")
     @Enumerated(EnumType.STRING)
     private Mode mode;
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
     @OneToMany(mappedBy = "line", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Trip> trips;
 
     @Override

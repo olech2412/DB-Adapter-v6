@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Ril100Identifier {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     private String rilIdentifier;
@@ -40,6 +42,7 @@ public class Ril100Identifier {
 
     @ManyToOne
     @JoinColumn(name = "station_id")
+    @JsonIgnore
     private Station station;
 
     @Override

@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.sub.*;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
@@ -35,6 +36,7 @@ public class Station {
     @ManyToOne
     @JoinColumn(name = "operator_id")
     Operator operator; // Operator of the station
+
     @ManyToOne
     @JoinColumn(name = "timeTableOffice_id")
     TimeTableOffice timeTableOffice; // Timetable office of the station
@@ -42,6 +44,7 @@ public class Station {
     @ManyToOne
     @JoinColumn(name = "regionalbereich_id")
     Regionalbereich regionalbereich; // Regional area of the station
+
     @ManyToOne
     @JoinColumn(name = "stationManagement_id")
     StationManagement stationManagement; // Station management of the station
@@ -49,11 +52,11 @@ public class Station {
     @ManyToOne
     @JoinColumn(name = "szentrale_id")
     Szentrale szentrale; // Central office of the station
-    @OneToMany(mappedBy = "station")
-    List<Stop> stops; // List of stops of the station
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stationId")
+    @JsonIgnore
     private long id; // Unique identifier for the station
 
     @Column(name = "station_id", unique = true, nullable = false)
@@ -111,12 +114,14 @@ public class Station {
     private String federalState; // Federal state where the station is located
 
     private LocalDateTime createdAt = LocalDateTime.now(); // Creation date and time of the station
+
     @OneToMany(mappedBy = "station")
     @ToString.Exclude
     private List<Ril100Identifier> ril100Identifiers; // List of Ril100 identifiers of the station
 
-    @OneToMany(mappedBy = "station")
+    @OneToMany(mappedBy = "station", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Stop> stop;
 
     @ManyToOne

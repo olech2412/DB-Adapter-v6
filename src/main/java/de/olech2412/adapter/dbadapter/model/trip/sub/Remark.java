@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.trip.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Remark {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "remark_type", length = 2000)
@@ -40,7 +42,8 @@ public class Remark {
     @Column(name = "remark_text", length = 2000, unique = true)
     private String text;
 
-    @ManyToMany(mappedBy = "remarks")
+    @ManyToMany(mappedBy = "remarks", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Trip> trips = new ArrayList<>();
 
     private LocalDateTime createdAt = LocalDateTime.now();

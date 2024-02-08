@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
@@ -25,6 +26,7 @@ public class Operator {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE)
     @SerializedName("operator_id")
+    @JsonIgnore
     private Long id;
 
     @Column(name = "operator_type")
@@ -39,10 +41,12 @@ public class Operator {
 
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Station> stations;
 
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Line> lines;
 
     @Override

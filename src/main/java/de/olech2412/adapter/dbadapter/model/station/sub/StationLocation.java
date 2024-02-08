@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class StationLocation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "location_id")
     @SerializedName("station_location_id")
+    @JsonIgnore
     private Long id;
 
     @Column(name = "location_latitude")
