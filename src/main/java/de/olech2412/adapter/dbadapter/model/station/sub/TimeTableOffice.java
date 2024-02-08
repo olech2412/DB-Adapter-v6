@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class TimeTableOffice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "timetableoffice_email")
@@ -32,6 +34,7 @@ public class TimeTableOffice {
 
     @OneToMany(mappedBy = "timeTableOffice", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Station> stations;
 
     @Override

@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Szentrale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "szentrale_number")
@@ -36,6 +38,7 @@ public class Szentrale {
 
     @OneToMany(mappedBy = "szentrale", fetch = FetchType.LAZY)
     @ToString.Exclude
+    @JsonIgnore
     private List<Station> stations;
 
     @Override

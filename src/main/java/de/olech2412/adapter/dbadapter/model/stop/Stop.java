@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.stop;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Products;
@@ -30,6 +31,7 @@ public class Stop {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @SerializedName("stop_id") // for gson because clash with stopId (see below)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "stop_type")

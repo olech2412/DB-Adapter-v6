@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.trip;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
 import de.olech2412.adapter.dbadapter.model.trip.sub.Remark;
@@ -32,6 +33,7 @@ public class Trip {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "trip_id")

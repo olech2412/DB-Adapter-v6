@@ -1,5 +1,6 @@
 package de.olech2412.adapter.dbadapter.model.station.sub;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class GeographicCoordinates {
 
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE)
+    @JsonIgnore
     private Long id;
 
     @Column(name = "geographiccoordinates_type")
