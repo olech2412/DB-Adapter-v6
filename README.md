@@ -12,7 +12,7 @@ Add the following to your pom.xml:
 <dependency>
     <groupId>de.olech2412.adapter</groupId>
     <artifactId>db-adapter-v6</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.0</version> // make sure to choose the latest version
 </dependency>
 ```
 
@@ -94,6 +94,6 @@ public class Main {
 }
 ```
 
-## Thanks to @derhuerst 🙏
+## Thanks to [@derhuerst](https://github.com/derhuerst) 🙏
 
 Thanks for providing this amazing REST API: https://github.com/derhuerst/db-rest 
