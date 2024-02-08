@@ -12,7 +12,7 @@ Add the following to your pom.xml:
 <dependency>
     <groupId>de.olech2412.adapter</groupId>
     <artifactId>db-adapter-v6</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.0</version> // make sure to choose the latest version
 </dependency>
 ```
 
