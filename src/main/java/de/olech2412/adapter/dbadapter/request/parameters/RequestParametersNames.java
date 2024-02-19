@@ -39,6 +39,10 @@ public enum RequestParametersNames {
 
     TRAM("tram"), // include tram?
 
+    FROM("from"), // from
+
+    TO("to"), // to
+
     TAXI("taxi"); // include taxi?
 
     private final String parameter;

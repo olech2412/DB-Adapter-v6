@@ -49,6 +49,9 @@ public class APIConfiguration {
                         .build(),
                 new Request.RequestBuilder()
                         .setApiEndpoint(RequestPath.STATIONS)
+                        .build(),
+                new Request.RequestBuilder()
+                        .setApiEndpoint(RequestPath.JOURNEYS)
                         .build()
         );
     }

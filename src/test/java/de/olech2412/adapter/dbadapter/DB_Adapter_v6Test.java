@@ -2,6 +2,7 @@ package de.olech2412.adapter.dbadapter;
 
 import de.olech2412.adapter.dbadapter.exception.Error;
 import de.olech2412.adapter.dbadapter.exception.Result;
+import de.olech2412.adapter.dbadapter.model.journey.Journey;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
@@ -54,6 +55,21 @@ public class DB_Adapter_v6Test {
         Assertions.assertNotNull(departure.getCreatedAt());
         Assertions.assertNotNull(departure.getLine());
         Assertions.assertNotNull(departure.getTripId());
+    }
+
+    @Test
+    public void testGetJourneys() throws IOException {
+
+        Result<Journey[], Error> journeysResult = db_adapter_v6.getJourney(new Parameter.ParameterBuilder().add(
+                RequestParametersNames.FROM, 8000001).add(RequestParametersNames.TO, 8000013).build()
+        );
+
+        Assertions.assertNotNull(journeysResult);
+        Assert.assertTrue(journeysResult.isSuccess());
+        Assertions.assertNotEquals(0, journeysResult.getData().length);
+
+        Journey journey = journeysResult.getData()[0];
+        Assertions.assertNotNull(journey);
     }
 
     @Test
