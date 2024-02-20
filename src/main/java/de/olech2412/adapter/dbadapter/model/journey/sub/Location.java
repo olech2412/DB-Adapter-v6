@@ -1,8 +1,15 @@
 package de.olech2412.adapter.dbadapter.model.journey.sub;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  * Represents a location in the system.
  */
+@Getter
+@Setter
+@ToString
 public class Location {
     /**
      * The type of the location.

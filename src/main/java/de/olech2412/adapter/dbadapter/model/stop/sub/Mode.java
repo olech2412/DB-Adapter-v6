@@ -14,22 +14,26 @@ import java.io.IOException;
 public enum Mode {
     BUS, TAXI, WATERCRAFT, TRAIN;
 
-    public String toValue() {
-        switch (this) {
-            case BUS: return "bus";
-            case TAXI: return "taxi";
-            case WATERCRAFT: return "watercraft";
-            case TRAIN: return "train";
-        }
-        return null;
-    }
-
     public static Mode forValue(String value) throws IOException {
         if (value.equals("bus")) return BUS;
         if (value.equals("taxi")) return TAXI;
         if (value.equals("watercraft")) return WATERCRAFT;
         if (value.equals("train")) return TRAIN;
         throw new IOException("Cannot deserialize Mode");
+    }
+
+    public String toValue() {
+        switch (this) {
+            case BUS:
+                return "bus";
+            case TAXI:
+                return "taxi";
+            case WATERCRAFT:
+                return "watercraft";
+            case TRAIN:
+                return "train";
+        }
+        return null;
     }
 
     // custom ModeTypeAdapter for gson

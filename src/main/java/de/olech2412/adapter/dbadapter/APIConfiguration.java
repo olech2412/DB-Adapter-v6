@@ -25,7 +25,7 @@ public class APIConfiguration {
 
     @Setter
     private Proxy proxy;
-    
+
     public APIConfiguration() {
         buildRequestList();
     }
