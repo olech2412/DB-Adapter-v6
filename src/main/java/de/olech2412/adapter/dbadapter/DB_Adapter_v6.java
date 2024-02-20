@@ -7,6 +7,7 @@ import de.olech2412.adapter.dbadapter.exception.api.ApiError;
 import de.olech2412.adapter.dbadapter.gsonadapter.GeographicCoordinatesAdapter;
 import de.olech2412.adapter.dbadapter.gsonadapter.LocalDateTimeAdapter;
 import de.olech2412.adapter.dbadapter.gsonadapter.LocalDateTimeAdapterForTrip;
+import de.olech2412.adapter.dbadapter.model.journey.Journey;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.station.sub.GeographicCoordinates;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
@@ -111,7 +112,6 @@ public class DB_Adapter_v6 {
             log.error(String.format("Error while getting stop by id %s: %s", id, result.getError().getError()));
             return Result.error(result.getError());
         } else {
-            Result<Stop, Error> stopResult = Result.success(gson.fromJson(result.getData(), Stop.class));
             return Result.success(gson.fromJson(result.getData(), Stop.class));
         }
     }
@@ -134,6 +134,28 @@ public class DB_Adapter_v6 {
             return Result.error(result.getError());
         } else {
             return Result.success(gson.fromJson(result.getData(), Station.class));
+        }
+    }
+
+    /**
+     * Get a journey with the given parameters
+     *
+     * @param parameters the parameters of the journey from and to are necessary
+     * @return the journey or an error
+     * @throws IOException if the request fails
+     */
+    public Result<Journey[], Error> getJourney(List<Parameter<?>> parameters) throws IOException {
+        String parameter = ParameterEvaluator.convertToString(parameters);
+        Request request = getRequest(RequestPath.JOURNEYS);
+        request.setApiEndpoint(request.getApiEndpoint() + parameter);
+        Result<JsonObject, Error> result = performRequest(request);
+
+        if (!result.isSuccess()) {
+            log.error(String.format("Error while getting journey: %s", result.getError().getError()));
+            return Result.error(result.getError());
+        } else {
+            JsonArray jsonArray = result.getData().getAsJsonArray("journeys");
+            return Result.success(gson.fromJson(jsonArray, Journey[].class));
         }
     }
 

@@ -2,6 +2,7 @@ package de.olech2412.adapter.dbadapter;
 
 import de.olech2412.adapter.dbadapter.exception.Error;
 import de.olech2412.adapter.dbadapter.exception.Result;
+import de.olech2412.adapter.dbadapter.model.journey.Journey;
 import de.olech2412.adapter.dbadapter.model.station.Station;
 import de.olech2412.adapter.dbadapter.model.stop.Stop;
 import de.olech2412.adapter.dbadapter.model.trip.Trip;
@@ -54,6 +55,37 @@ public class DB_Adapter_v6Test {
         Assertions.assertNotNull(departure.getCreatedAt());
         Assertions.assertNotNull(departure.getLine());
         Assertions.assertNotNull(departure.getTripId());
+    }
+
+    @Test
+    public void testGetJourneys() throws IOException {
+        Result<Journey[], Error> journeysResult = db_adapter_v6.getJourney(new Parameter.ParameterBuilder().add(
+                        RequestParametersNames.FROM, 8000001)
+                .add(RequestParametersNames.TO, 8000013)
+                .add(RequestParametersNames.REGIONAL, false)
+                .add(RequestParametersNames.REGIONAL_EXPRESS, false)
+                .add(RequestParametersNames.SUBURBAN, false)
+                .add(RequestParametersNames.BUS, false)
+                .add(RequestParametersNames.FERRY, false)
+                .add(RequestParametersNames.SUBWAY, false)
+                .add(RequestParametersNames.TRAM, false)
+                .add(RequestParametersNames.TAXI, false)
+                .add(RequestParametersNames.STOP_OVERS, true)
+                .add(RequestParametersNames.NATIONAL, true)
+                .add(RequestParametersNames.LANGUAGE, "de")
+                .add(RequestParametersNames.NATIONAL_EXPRESS, true)
+                .build()
+        );
+
+        Assertions.assertNotNull(journeysResult);
+        Assert.assertTrue(journeysResult.isSuccess());
+        Assertions.assertNotEquals(0, journeysResult.getData().length);
+
+        // check if the first journey has legs
+        Assertions.assertNotNull(journeysResult.getData()[0].getLegs());
+
+        Journey journey = journeysResult.getData()[0];
+        Assertions.assertNotNull(journey);
     }
 
     @Test
@@ -129,7 +161,7 @@ public class DB_Adapter_v6Test {
         Assertions.assertNotEquals(0, arrivalsWithParameterResult.getData().length);
 
         for (Trip trip : arrivalsWithParameterResult.getData()) {
-            Assertions.assertTrue(trip.getLine().getProduct().equals("nationalExpress"));
+            Assertions.assertEquals("nationalExpress", trip.getLine().getProduct());
         }
 
         Result<Trip[], Error> arrivalsWithParameterResult2 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
@@ -147,7 +179,7 @@ public class DB_Adapter_v6Test {
                 .build());
 
         for (Trip trip : arrivalsWithParameterResult2.getData()) {
-            Assertions.assertTrue(trip.getLine().getProduct().equals("national"));
+            Assertions.assertEquals("national", trip.getLine().getProduct());
         }
 
         Result<Trip[], Error> arrivalsWithParameterResult3 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
@@ -165,7 +197,7 @@ public class DB_Adapter_v6Test {
                 .build());
 
         for (Trip trip : arrivalsWithParameterResult3.getData()) {
-            Assertions.assertTrue(trip.getLine().getProduct().equals("regionalExpress"));
+            Assertions.assertEquals("regionalExpress", trip.getLine().getProduct());
         }
 
         Result<Trip[], Error> arrivalsWithParameterResult4 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
@@ -183,7 +215,7 @@ public class DB_Adapter_v6Test {
                 .build());
 
         for (Trip trip : arrivalsWithParameterResult4.getData()) {
-            Assertions.assertTrue(trip.getLine().getProduct().equals("regional"));
+            Assertions.assertEquals("regional", trip.getLine().getProduct());
         }
 
         Result<Trip[], Error> arrivalsWithParameterResult5 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()
@@ -201,7 +233,7 @@ public class DB_Adapter_v6Test {
                 .build());
 
         for (Trip trip : arrivalsWithParameterResult5.getData()) {
-            Assertions.assertTrue(trip.getLine().getProduct().equals("suburban"));
+            Assertions.assertEquals("suburban", trip.getLine().getProduct());
         }
 
         Result<Trip[], Error> arrivalsWithParameterResult6 = db_adapter_v6.getArrivalsByStopId(stopId, new Parameter.ParameterBuilder()

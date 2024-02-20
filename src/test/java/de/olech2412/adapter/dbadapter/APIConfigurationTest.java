@@ -23,7 +23,8 @@ public class APIConfigurationTest {
                 new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_DEPARTURES).build(),
                 new Request.RequestBuilder().setApiEndpoint(RequestPath.STOPS_BY_ID_ARRIVALS).build(),
                 new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS_BY_ID).build(),
-                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS).build()
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.STATIONS).build(),
+                new Request.RequestBuilder().setApiEndpoint(RequestPath.JOURNEYS).build()
         );
         APIConfiguration apiConfiguration = new APIConfiguration();
         Assert.assertEquals(apiConfiguration.getRequests().size(), expectedRequests.size());
