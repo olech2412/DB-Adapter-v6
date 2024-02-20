@@ -2,12 +2,18 @@ package de.olech2412.adapter.dbadapter.model.journey;
 
 import de.olech2412.adapter.dbadapter.model.journey.sub.Leg;
 import de.olech2412.adapter.dbadapter.model.journey.sub.Price;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 /**
  * Represents a journey from one location to another.
  */
+@Getter
+@Setter
+@ToString
 public class Journey {
     /**
      * The type of the journey.

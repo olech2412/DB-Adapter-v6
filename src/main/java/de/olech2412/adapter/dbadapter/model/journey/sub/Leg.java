@@ -5,6 +5,7 @@ import de.olech2412.adapter.dbadapter.model.stop.sub.Line;
 import de.olech2412.adapter.dbadapter.model.trip.sub.Remark;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@ToString
 public class Leg {
     /**
      * The origin stop of the leg.
@@ -118,4 +120,14 @@ public class Leg {
      * The load factor of the leg.
      */
     private String loadFactor;
+
+    /**
+     * The stopovers of the leg.
+     */
+    private List<Stopover> stopovers;
+
+    /**
+     * The geometry of the leg.
+     */
+    private Polyline polyline;
 }
