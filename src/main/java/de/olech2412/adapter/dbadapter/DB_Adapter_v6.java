@@ -178,6 +178,7 @@ public class DB_Adapter_v6 {
 
     /**
      * Perform the request
+     *
      * @param request the request
      * @return the result of the request
      * @throws IOException if the request fails
