@@ -43,6 +43,44 @@ public enum RequestParametersNames {
 
     TO("to"), // to
 
+    DEPARTURE("departure"), // departure
+
+    ARRIVAL("arrival"), // arrival
+
+    EARLIER_THAN("earlierThan"), // Compute journeys "before" an ealierRef.
+
+    LATER_THAN("laterThan"), // Compute journeys "after" an laterRef.
+
+    STOP_OVERS("stopovers"), // Fetch & parse stopovers on the way?
+
+    TRANSFERS("transfers"), // Maximum number of transfers.
+
+    TRANSFER_TIME("transferTime"), // Minimum time for a single transfer in minutes.
+
+    ACCESSIBILITY("accessibility"), // Partial or complete
+
+    BIKE("bike"), // Compute only bike-friendly journeys?
+
+    START_WITH_WALKING("startWithWalking"), // Consider walking to nearby stations at the beginning of a journey?
+
+    WALKING_SPEED("walkingSpeed"), // slow, normal or fast
+
+    TICKETS("tickets"), // Return information about available tickets?
+
+    POLYLINES("polylines"), // Fetch & parse a shape for each journey leg?
+
+    SUB_STOPS("subStops"), // Parse & return sub-stops of stations?
+
+    ENTRANCES("entrances"), // Parse & return entrances of stops/stations?
+
+    SCHEDULED_DAYS("scheduledDays"), // Parse & return dates each journey is valid on?
+
+    LOYALTY_CARD("loyaltyCard"),  // Type of loyalty card in use
+
+    FIRST_CLASS("firstClass"), // Search for first-class options?
+
+    AGE("age"), // Age of traveller
+
     TAXI("taxi"); // include taxi?
 
     private final String parameter;
