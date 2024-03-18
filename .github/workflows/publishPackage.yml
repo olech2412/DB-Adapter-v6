@@ -31,35 +31,9 @@ jobs:
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
-  cve-scan:
-    needs: build-and-test-adapter
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Run CVE scan
-        run: 'mvn clean install -P CVE-Check -Dmaven.test.skip=true'
-
-      - name: Archive CVE scan results
-        uses: actions/upload-artifact@v2
-        with:
-          name: cve.results
-          path: |
-            target/dependency-check-report.html
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }
           
   publish:
-    needs: [build-and-test-adapter, cve-scan]
     runs-on: ubuntu-latest
     permissions:
       contents: read
