@@ -26,7 +26,8 @@ import java.util.Objects;
         @Index(name = "idx_line_id", columnList = "id"),
         @Index(name = "idx_line_stop_line_name", columnList = "stop_line_name"),
         @Index(name = "idx_line_stop_line_id", columnList = "stop_line_id"),
-        @Index(name = "idx_line_stop_line_fahrtnr", columnList = "stop_line_fahrtNr")
+        @Index(name = "idx_line_stop_line_fahrtnr", columnList = "stop_line_fahrtNr"),
+        @Index(name = "idx_line", columnList = "stop_line_productName")
 })
 public class Line {
 
